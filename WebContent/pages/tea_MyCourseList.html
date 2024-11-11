@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>我的课程</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+        	$.ajax({
+				url:"../queryTeaCourse.do",
+				type:"post",
+				dataType:"json",
+    			success:function(data){
+    				var c1=$(".course").clone();
+    				$(".course").remove();
+    				$.each(data,function(i,dt){
+    					var c2=c1.clone();
+     					c2.attr("id","tr"+i);
+    					c2.children("td[class='num']").html(i);
+    					c2.children("td[class='cid']").html(dt.id);
+    					c2.children("td[class='cname']").html(dt.course_name);
+    					c2.children("td[class='ctype']").html(dt.course_type);
+    					c2.children("td[class='cinfo']").html(dt.course_info);
+    					if(dt.score_flag==0){    						
+    						c2.children("td[class='cflag']").html("START");
+    					}
+    					if(dt.score_flag==1){    						
+    						c2.children("td[class='cflag']").html("END");
+    					}
+    					
+    					c2.children("td[class='csize']").html(dt.course_stu_size);
+    					$("#ctable").append(c2);
+    				});
+    			}
+					
+			  });
+        	$("#addCourse").click(function(){
+        		location.href="tea_addCourse.html";
+        	});
+        });
+        function CourseInfo(obj){
+        	cid=$(obj).children("td[class='cid']").html();
+        	location.href="tea_MyCourseInfo.html?cou="+cid;
+        }
+    </script>
+</head>
+<body>
+<div class="buttonGather"><button id="addCourse">增加课程</button></div>
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0" id="ctable">
+        <tr >
+            <th></th>
+            <th >课程编号</th>
+            <th >课程名称</th>
+            <th >课程类型</th>
+            <th >课程描述</th>
+            <th >课程人数</th>
+            <th >课程状态</th>
+        </tr>
+        <tr class="course" ondblclick="CourseInfo(this)">
+            <td class="num"></td>
+            <td class="cid"></td>
+            <td class="cname"></td>
+            <td class="ctype"></td>            
+            <td class="cinfo"></td>
+            <td class="csize"></td>
+            <td class="cflag"></td>
+        </tr>
+       
+    </table>
+</div>
+<div class="tablePage">
+    <div>共<span>34</span>条记录，每页<span>10</span>条，共<span>4</span>页</div>
+    <a href="" class="pageTop"></a>
+    <a href="" class="pageUp"></a>
+    <em><input type="text" name="tablePage"></em>
+    <a href="" class="pageDown"></a>
+    <a href="" class="pageBottom"></a>
+</div>
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<style>
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        border-radius: 0;
+        margin: 0;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        /* 2nd scrollbar dragger style... */
+        background-color: #355372;
+        height: 10px;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        height: 8px;
+        border: 1px solid #355372;
+        background-color: #FFFFFF;
+    }
+</style>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.tableList").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: true
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->

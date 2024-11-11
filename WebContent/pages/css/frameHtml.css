@@ -1,0 +1,647 @@
+*{
+    color: #000;
+    font-size: 15px;
+    font-family: "黑体";
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+    list-style: none;
+    text-decoration: none;
+}
+button{height: 30px; border: 0px; background: #332; padding: 0px 20px; color: #FFFFFF;cursor: pointer;}
+button:hover{background: #355a81; opacity: 0.9;}
+input[type="text"],input[type="password"]{color: #3E5B79;  border: 1px solid #3E5B79;  text-indent: 7px;}
+input[type="text"]:focus,input[type="password"]:focus{outline: none; border: 1px solid #44BCC9}
+textarea{color: #3E5B79;  border: 1px solid #3E5B79; resize: none;}
+textarea:focus{outline: none; border: 1px solid #44BCC9;}
+a:visited{color: #000;}
+a:hover{color: #371818;}
+* img{
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+body{
+    padding: 30px;
+}
+header{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 3px double #3E5B79;
+    margin-bottom: 20px;
+    position: relative;
+    margin-top: 30px;
+}
+header > div{display: inline-block; color: #333; padding: 0px 10px;}
+header > div > a{color: #333;}
+header > div > a:visited{color: #333;}
+header > div > a:hover{color: #800000; text-decoration: underline;}
+
+header > nav{width: 100px; height: 30px; background: #3E5B79; text-align: center; position: absolute; bottom: 0px; right: 0px;}
+header > nav > a{color: #FFFFFF; display: inline-block; width: 42%; background: #44BCC9; height: 25px; line-height: 25px;}
+header > nav > a[href]{ background: #3E5B79;}
+header > nav > a:visited{color: #FFFFFF;}
+header > nav > a:hover{color: #FFFFFF;}
+
+div.originalTitle,div.targetTitle{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    border-bottom: 3px double #3E5B79;
+    margin-bottom: 20px;
+}
+div.targetChoice{width: 100%; margin-bottom: 20px;}
+div.targetChoice > button{margin-right: 20px;}
+div.targetChoice > span{color: #44BCC9;}
+div.originalTitle > div,div.targetTitle > div{background: #3E5B79; display: inline-block; color: #FFFFFF; padding: 0px 30px;}
+div.targetTitle{border-bottom: 3px double #44BCC9;}
+div.targetTitle > div{background: #44BCC9;}
+
+div.tableDetails{width: 100%; margin-bottom: 20px;}
+div.tableDetails table{
+    margin: 0 auto;
+    min-width: 100%;
+    word-break:keep-all;           /* 不换行 */
+    white-space:nowrap;          /* 不换行 */
+}
+div.tableDetails table th,div.tableDetails table td{height: 35px;}
+div.tableDetails table td{font-size: 15px;}
+div.tableDetails table th{
+    width: 100px;
+    text-align: right;
+    font-weight: lighter;
+    font-size: 13px;
+    color: #999999;
+    padding-right: 12px;
+}
+/*div.tableDetails table td[colspan]{text-align: right;}*/
+
+div.tableDetails table td > input{
+    width: 150px;
+    height: 25px;
+}
+
+div.buttonGather{width: 100%; margin-bottom: 10px;}
+div.buttonGather button{margin-right: 20px;}
+
+div.tableList{width: 100%; overflow: auto;}
+div.tableList table{
+    margin: 0 auto;
+    min-width: 100%;
+    border-collapse: collapse;
+    word-break:break-all;           /*!* 不换行 *!*/
+    /*white-space:nowrap;          !* 不换行 *!*/
+    word-wrap: break-word;
+    background: #ffffff;
+}
+div.tableList table tr:hover{
+    background: #ddfafe;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div.tableList table tr td.left{
+    text-align: left;
+}
+div.tableList table tr td div.tableOmitted{white-space: nowrap;overflow: hidden;text-overflow: ellipsis; height: 100%; line-height: 60px;}
+div.tableList table th, div.tableList table td{
+    border: 1px solid #dddddd;
+    height: 38px;
+    text-align: center;
+    font-weight: lighter;
+    padding: 0px 5px;
+}
+div.tableList table th{
+    background: #EFEFEF;
+    font-size: 16px;
+}
+div.tableList table td {
+    cursor: pointer;
+    height: 60px;
+}
+/*div.tableList table td > a{*/
+    /*display:block;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*line-height: 38px;*/
+/*}*/
+table td > span.classAgo{font-weight: bold;color: #ECB606}
+table td > span.classNow{font-weight: bold;color: #00ff00}
+table td > span.classStop{font-weight: bold;color: #FF0000}
+table td > span.classEnd{font-weight: bold;color: #0000ff}
+
+div.tablePage{
+    width: 100%;
+    height: 30px;
+    margin: 20px;
+}
+div.tablePage > *{display: inline-block; text-align: right;}
+div.tablePage > div{height: 25px; line-height: 25px; vertical-align: top; margin-right: 35%;}
+div.tablePage > a{width: 40px; height: 25px; border: 1px solid #3E5B79;}
+div.tablePage > a:visited{border: 1px solid #3E5B79;}
+div.tablePage > a:hover{border: 1px solid #44BCC9;}
+div.tablePage > a.pageTop{background: url("../images/pageTop.png") center no-repeat;}
+div.tablePage > a.pageBottom{background: url("../images/pageBottom.png") center no-repeat;}
+div.tablePage > a.pageUp{background: url("../images/pageUp.png") center no-repeat;}
+div.tablePage > a.pageDown{background: url("../images/pageDown.png") center no-repeat;}
+div.tablePage > em,div.tablePage > em > input[type="text"]{width: 40px; height: 25px; vertical-align: top; text-align: center; text-indent: 0px;}
+
+h1.finishTitle{
+    text-align: center;
+    font-size: 22px;
+    color: #3E5B79;
+    margin-top: 0px;
+    margin-bottom: 30px;
+}
+h1.finishTitle > span{
+    color: #323232;
+    margin: 0 10px;
+    font-size: 22px;
+}
+ul.finishInformation{
+    width: 1061px;
+    height: 240px;
+    margin: 0 auto 30px;
+    background: #d3d8d8;
+    padding: 10px;
+
+}
+ul.finishInformationModify{
+    height: 650px;
+}
+ul.finishInformation > li{
+    float: left;
+    width: 530px;
+    height: 100%;
+}
+ul.finishInformation > li:first-child{
+    border-right: 1px solid #3E5B79;
+}
+ul.registerAudit{
+    width: 650px;
+    height: 280px;
+    margin: 0 auto 30px;
+}
+ul.registerAudit > li:first-child{
+    border: 0px;
+}
+ul.finishInformation > li > ul > li{
+    line-height: 25px;
+    margin-top: 20px;
+}
+ul.finishInformation > li > ul > li.auditWarning{
+    cursor:pointer;
+}
+ul.finishInformation > li > ul > li.auditWarning > input[type="checkbox"]{display: none;}
+ul.finishInformation > li > ul > li.auditRed{
+    background: url("../images/warningRed.png") 450px center no-repeat;
+}
+ul.finishInformation > li > ul > li > img{
+    margin-left: 180px;
+    border: 1px solid #3E5B79;
+}
+ul.finishInformation > li > ul > li > span{
+    display: inline-block;
+    vertical-align: top;
+    font-size: 16px;
+}
+ul.finishInformation > li > ul > li > span > input{
+    width: 150px;
+    height: 25px;
+}
+ul.finishInformation > li > ul > li > span:first-child{
+    width: 180px;
+    text-align: right;
+    color: #2e2e2e;
+    font-size: 15px;
+    padding-right: 12px;
+}
+ul.finishInformation > li > ul > li.auditRed > span{
+    color: #FF0000;
+}
+
+
+div.operationGather{width: 100%; text-align: center;}
+div.operationGather > button{ margin: 20px 20px 0px 20px;}
+div.tableList table td > span.green{color: #00ff00}
+div.tableList table td > span.red{color: red}
+div.tableList table td > a{margin-left: 5px; color: #0000ff}
+div.tableList table td > span.effective{color: #2BA454}
+div.tableList table td > span.invalid{color: #505050}
+div.warning > span{margin: 0 15px}
+div.tableList table td.warp{
+    width: 300px;
+    word-break:normal;           /* 不换行 */
+    white-space:pre-line;          /* 不换行 */
+}
+
+
+label.radio{
+    display: inline-block;
+    min-width: 60px;
+    text-indent: 20px;
+    cursor:pointer;
+    background: url("../images/radioBlue.png") no-repeat left center;
+}
+label.checked{
+    background: url("../images/radioBlueChecked.png") no-repeat left center;
+}
+label.radio > input[type="radio"]{
+    display: none;
+}
+label.radio > a.nation{
+    display: inline-block;
+    text-align: center;
+    width: 105px;
+    height: 25px;
+    line-height: 25px;
+    border: 0;
+    background: #3E5B79;
+    cursor:pointer;
+    font-size: 16px;
+    font-family: "幼圆";
+    color: #FFFFFF;
+    text-indent: 0px;
+}
+label.radio > a.nation:hover{background: #355a81;}
+span.radioSpan{font-size: 14px;}
+
+table.teacherTranslate,table.roleTitle,div.roleContent{width: 600px; margin: 0 auto;}
+table.teacherTranslate{margin-bottom: 20px;}
+table.teacherTranslate th{
+    font-weight: lighter;
+    width: 80px;
+    text-align: right;
+    height: 30px;
+    /*font-size: 13px;*/
+    color: #999999;
+    padding-right: 12px;
+}
+div.roleContent table{width: 100%;}
+table.roleTitle,div.roleContent table{border-collapse: collapse;}
+table.roleTitle td,div.roleContent table td{border: 1px solid #dddddd; text-align: center;}
+table.roleTitle td{height: 30px;background: #EFEFEF; font-size: 16px;}
+div.roleContent{height: 205px; overflow: auto; margin-bottom: 20px;}
+div.roleContent table{background: #ffffff;}
+div.roleContent table td{height: 30px; line-height: 25px;}
+div.roleContent table tr:hover{
+    background: #ddfafe;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div.roleContent table tr.selected{ background: #3E5B79;  }
+div.roleContent table tr.selected td{ color: #FFFFFF;}
+
+div.TransferContent table,table.TransferTitle{width: 100%;}
+table.TransferTitle,div.TransferContent table{border-collapse: collapse;}
+table.TransferTitle td,div.TransferContent table td{border: 1px solid #dddddd; text-align: center;}
+table.TransferTitle td{height: 30px;background: #EFEFEF; font-size: 16px;}
+div.TransferContent{height: 205px; overflow: auto; margin-bottom: 20px;}
+div.TransferContent table{background: #ffffff;}
+div.TransferContent table td{height: 30px; line-height: 25px;}
+div.TransferContent table tr:hover{
+    background: #ddfafe;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+div.TransferContent table tr.selected{ background: #3E5B79;  }
+div.TransferContent table tr.selected td{ color: #FFFFFF;}
+
+table.addClass{width: 450px; margin: 30px auto;}
+table.addClass th{
+    font-weight: lighter;
+    text-align: right;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: top;
+    font-size: 15px;
+    color: #999999;
+    padding-right: 12px;
+}
+table.addClass td.classAddress{padding-top: 7px;}
+table.addClass td > input{
+    width: 300px;
+    height: 25px;
+}
+table.addClass td > a{
+    display: inline-block;
+    width: 302px;
+    height: 27px;
+    line-height: 27px;
+    color: #3E5B79;
+    background: #CFD6E2;
+    text-align: center;
+    cursor: pointer;
+}
+div.roleInformation{
+    width: 730px;
+    height: 90px;
+    margin: 12px auto;
+}
+div.roleInformation ul li{
+    height: 30px;
+    line-height: 30px;
+    position: relative;
+}
+div.roleInformation ul li span{
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    position: absolute;
+    left: -100px;
+    text-align: right;
+    color: #999;
+}
+div.roleInformation ul li > label{
+    margin-right: 20px;
+    cursor:pointer;
+}
+div.roleInformation ul li input[type="radio"]{
+    margin-right: 10px;
+}
+div.roleInformation ul li input[type="text"]{
+    width: 100px;
+    height: 25px;
+}
+div.roleInformation div.roleLeft{
+    float: left;
+    width: 210px;
+    height: 100%;
+}
+div.roleInformation div.roleRight{
+    float: right;
+    width: 505px;
+    height: 100%;
+}
+div.roleInformation div.roleRight > div.textarea{
+    float: right;
+    width: 415px;
+    height: 100%;
+    position: relative;
+}
+div.roleInformation div.roleRight > div.textarea > span{
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    position: absolute;
+    left: -100px;
+    text-align: right;
+    color: #999;
+}
+div.roleInformation div.roleRight > div.textarea > textarea{
+    width: 412px;
+    height: 100%;
+    line-height: 25px;
+}
+div.roleFunction{
+    width: 730px;
+    height: 310px;
+    margin: 0 auto;
+}
+div.roleFunction div.roleLeft{
+    float: left;
+    width: 210px;
+    height: 100%;
+    border: 1px solid #3E5B79;
+    position: relative;
+}
+div.roleLeft > span{
+    width: 90px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    position: absolute;
+    left: -100px;
+    text-align: right;
+    color: #999;
+
+}
+div.roleFunction div.roleRight{
+    float: right;
+    width: 505px;
+    height: 100%;
+    border: 1px solid #3E5B79;
+}
+div.role > h1{
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background: #332;
+    color: #CFD6E2;
+    text-indent: 10px;
+    font-weight: lighter;
+}
+div.role > h1 >small{
+    color: #CFD6E2;
+    font-size: xx-small;
+}
+
+div.scrollLeft{
+    width:210px;
+    height: 280px;
+    overflow: auto;
+    background: #FFFFFF;
+}
+div.scrollLeft ul li{
+    line-height: 32px;
+    text-indent: 55px;
+    cursor:pointer;
+}
+div.scrollLeft ul li:hover{
+    background: #ddfafe;
+}
+div.scrollLeft ul li.selected{
+    background: #ccc;
+}
+div.scrollLeft ul li.selected:hover{
+    background: #CFE1F0;
+}
+
+
+div.scrollRight{
+    width: 505px;
+    height: 280px;
+    overflow: auto;
+    background: #FFFFFF;
+}
+div.scrollRight ul{display: none;}
+div.scrollRight ul li > label{
+    cursor:pointer;
+    display: inline-block;
+    width: 45%;
+    height: 32px;
+    line-height: 32px;
+    text-indent: 25px;
+}
+div.scrollRight ul li > label > input{margin-right: 10px;vertical-align: middle;}
+div.scrollRight ul li:nth-of-type(even){background:#EFEFEF;}
+
+div.roleResult{
+    width: 730px;
+    height: 265px;
+    margin: 12px auto 20px;
+}
+div.scrollHorizontal{
+    border: 1px solid #3E5B79;
+    width: 728px;
+    height: 235px;
+    overflow: auto;
+}
+div.scrollHorizontal h1{
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    text-indent: 40px;
+    font-weight: lighter;
+    background: url("../images/roleShrink.png") 15px center no-repeat ;
+    border-bottom: 1px solid #EFEFEF;
+    cursor:pointer;
+}
+div.scrollHorizontal h1:hover{
+    background: url("../images/roleShrink.png") no-repeat 15px center #ddfafe;
+}
+div.scrollHorizontal h1.open{
+    background: url("../images/roleOpen.png") 15px center no-repeat ;
+}
+div.scrollHorizontal h1.open:hover{
+    background: url("../images/roleOpen.png") no-repeat 15px center #ddfafe;
+}
+div.scrollHorizontal div.roleResultContent{
+    width: 100%;
+    background:#EFEFEF;
+    padding:5px 10px;
+}
+div.roleResultContent > a{
+    display: inline-block;
+    padding: 0px 10px;
+    height: 25px;
+    line-height: 25px;
+    cursor:pointer;
+}
+/*div.scrollHorizontal table.roleResultScroll{*/
+    /*border-collapse: collapse;*/
+    /*background: #FFFFFF;*/
+/*}*/
+/*div.scrollHorizontal table.roleResultScroll td{*/
+    /*border: 1px solid #3E5B79;*/
+/*}*/
+/*table.roleResultScroll td div.scrollResult{*/
+    /*width: 242px;*/
+    /*height: 220px;*/
+    /*overflow: auto;*/
+/*}*/
+/*table.roleResultScroll td div.scrollResult ul li{*/
+    /*cursor:pointer;*/
+    /*height: 32px;*/
+    /*line-height: 32px;*/
+    /*text-indent: 25px;*/
+/*}*/
+
+/*table.roleResultScroll td div.scrollResult ul li:nth-of-type(even){background:#EFEFEF;}*/
+/*table.roleResultScroll td div.scrollResult ul li:hover{ background:#ddfafe; }*/
+/*table.roleResultScroll td div.scrollResult ul li:first-child{*/
+    /*text-indent: 45px;*/
+    /*cursor:pointer;*/
+    /*background: url("../images/navIconB.png") no-repeat 18px center;*/
+/*}*/
+
+table.passwordModify tr td{position: relative}
+table.passwordModify tr td span.prompt{
+    display: inline-block;
+    vertical-align: top;
+    min-width: 140px;
+    min-height: 25px;
+    line-height: 25px;
+    margin-left: 10px;
+    font-size: 12px;
+    font-family: "宋体";
+    text-indent: 30px;
+    position: absolute;
+    padding-right: 10px;
+}
+table.passwordModify  tr td span.prompt > em {
+    display: block;
+    border-width: 5px;
+    position: absolute;
+    bottom: 50%;
+    left: -10px;
+    font-size: 0;
+    line-height: 0;
+}
+table.passwordModify tr td span.prompt > span {
+    display: block;
+    border-width: 5px;
+    position: absolute;
+    bottom: 50%;
+    left: -9px;
+    font-size: 0;
+    line-height: 0;
+
+}
+table.passwordModify tr td span.warning{
+    border: 1px solid #3495E5;
+    background: #ECF9FC;
+    line-height: 15px;
+    position: absolute;
+    top: -10px;
+    width: 300px;
+    z-index: 5;
+}
+table.passwordModify tr td span.warning > ul{margin: 5px 0px;}
+table.passwordModify tr td span.warning > ul > li{
+    background: url("../images/promptError.png") no-repeat 10px center;
+    font-size: 12px;
+}
+table.passwordModify tr td span.warning > ul > li.via{background: url("../images/promptSuccess.png") no-repeat 10px center;}
+table.passwordModify tr td span.warning > ul > li:first-child{
+    text-indent: 5px;
+    background: none;
+}
+table.passwordModify tr td span.warning > ul > li:first-child > strong{
+    display: inline-block;
+    width: 45px;
+    height: 10px;
+}
+table.passwordModify tr td span.warning > ul > li:first-child > strong.pwRed{ background: #ff0000;}
+table.passwordModify tr td span.warning > ul > li:first-child > strong.pwYellow{ background: #ffff00;}
+table.passwordModify tr td span.warning > ul > li:first-child > strong.pwGreen{ background: #00ff00;}
+table.passwordModify tr td span.warning > ul > li:first-child > b{font-weight: lighter; margin: 0 5px;font-size: 12px;}
+table.passwordModify tr td span.warning > em {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #33D6FF transparent transparent;
+}
+table.passwordModify tr td span.warning > span {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #ECF9FC transparent transparent;
+}
+table.passwordModify tr td span.error{
+    color: #FF4A3E;
+    border: 1px solid #FF4A3E;
+    background: url("../images/promptError.png") no-repeat 10px center #FFF5F5;
+}
+table.passwordModify tr td span.error > em {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #FF4A3E transparent transparent;
+}
+table.passwordModify tr td span.error > span {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #FFF5F5 transparent transparent;
+}
+table.passwordModify tr td span.success{
+    background: url("../images/promptSuccess.png") no-repeat 10px center;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>教师审核-教师档案</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="LayerCss/global.css" media="all">
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="LayerCss/table.css" />
+    
+    
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+
+            $("div.operationGather > button#modify").click(function () {
+                location.href = "stu_StudentInfoModify.html";
+            });
+            $("div.operationGather > button#modifyPassword").click(function () {
+                location.href = "stu_passwordModify.html";
+            });
+            $.ajax({
+        		url:"../queryStudentInfo.do",
+        		type:"post",
+        		dataType:"json",
+        		success:function(data){
+        				$("#username").html(data.username);
+        				$("#id").html(data.id);
+        				$("#name").html(data.student.name);
+        				$("#sex").html(data.student.sex);
+        				$("#idCard").html(data.student.idCard);
+        				$("#phone").html(data.student.phoneNum);
+        				$("#province").html(data.student.provinces);
+        				$("#class").html(data.student.stuclass);
+        		}
+        	});
+        });
+
+    </script>
+</head>
+<body>
+<h1 class="finishTitle"><span id="tname"></span>个人信息</h1>
+<ul class="finishInformation">
+    <li>
+        <ul>
+            <li><span>账号</span><span id="username"></span></li>
+            <li><span>学生编号</span><span id="id"></span></li>
+            <li><span>学生姓名</span><span id="name"></span></li>
+            <li><span>性别</span><span id="sex"></span></li>
+        </ul>
+    </li>
+    <li>
+        <ul>
+            <li><span>手机号码</span><span id="phone"></span></li>
+            <li><span>身份证号</span><span id="idCard"></span></li>
+            <li><span>籍贯</span><span id="province"></span></li>
+            <li><span>班级</span><span id="class"></span></li>
+        </ul>
+    </li>
+</ul>
+
+<div class="operationGather">
+	<button id="modify" style="margin-bottom: 20px;" class="layui-btn layui-btn-big" onclick="saveScor()">
+		<i class="layui-icon" style="color: #fff">&#xe621;</i>
+		编辑信息
+	</button>
+    <button id="modifyPassword" style="margin-bottom: 20px;" class="layui-btn layui-btn-big" onclick="saveScor()">
+		<i class="layui-icon" style="color: #fff">&#xe621;</i>
+		修改密码
+	</button>
+</div>
+</body>
+</html>

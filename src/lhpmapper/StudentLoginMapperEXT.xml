@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.StudentLoginMapper">
+	
+	<select id="stuUsernameCheck" parameterType="String" resultType="int">
+		SELECT count(0) FROM `stu_user` where username=#{username}
+	</select>
+	
+	<insert id="addStudentInfo" parameterType="org.lhp.bean.Student"
+			useGeneratedKeys="true"
+			keyProperty="id">
+		INSERT INTO `stu_info` (`name`, `sex`, `class`, `idCard`, `phone`, `provinces`) 
+		VALUES 
+		(#{name},#{sex},#{stuclass},#{idCard},#{phoneNum},#{provinces})
+	</insert>
+	
+	<insert id="addStudentUser" parameterType="org.lhp.bean.StudentUser">
+		INSERT INTO `stu_user` (`username`, `password`, `check`, `infoid`)
+		VALUES
+		(#{username},#{password},#{check},#{infoid})
+	</insert>
+	
+	<select id="queryPassword" parameterType="String" resultType="String">
+		SELECT password FROM `stu_user` where username=#{username}
+	</select>
+	
+	<select id="queryId" parameterType="String" resultType="int">
+		SELECT id FROM `stu_user` where username=#{username}
+	</select>
+	
+	<select id="queryName" parameterType="int" resultType="String">
+		SELECT name FROM stu_user tu 
+		INNER JOIN stu_info ti ON tu.infoid=ti.id
+		WHERE tu.id=#{id}
+	</select>
+	
+	<resultMap type="org.lhp.bean.Student" id="student">
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="stuclass" column="class"/>
+		<result property="idCard" column="idCard"/>
+		<result property="phoneNum" column="phone"/>
+		<result property="provinces" column="provinces"/>
+	</resultMap>
+	
+	<resultMap type="org.lhp.bean.StudentUserRt" id="sur">
+		<id property="id" column="id"/>	
+		<result property="username" column="username"/>
+		<association property="student" resultMap="student"></association>
+	</resultMap>
+	
+	<select id="queryStudentInfo" parameterType="int" resultMap="sur">
+		SELECT su.id,su.username,`name`, `sex`, `class`, `idCard`, `phone`, `provinces` FROM stu_user su
+		INNER JOIN stu_info si ON su.infoid=si.id
+		WHERE su.id=#{sid} 
+	</select>
+	
+	<update id="stuModifyInfo" parameterType="org.lhp.bean.StudentUserRt">
+		UPDATE stu_info SET
+			`name`=#{student.name},
+			 `sex`=#{student.sex},
+			  `class`=#{student.stuclass},
+			   `idCard`=#{student.idCard},
+			    `phone`=#{student.phoneNum},
+			     `provinces`=#{student.provinces}
+		WHERE id=(
+			SELECT infoid FROM stu_user WHERE id=#{id}
+		)
+	</update>
+	<select id="ByidqueryPassword" parameterType="int" resultType="String">
+		SELECT password FROM `stu_user` where id=#{id}
+	</select>
+	
+	<update id="ModifyStuPassword" parameterType="Map">
+		UPDATE stu_user SET `password`=#{password} WHERE id=#{stuid}
+	</update>
+	
+	<select id="ByIdQueryStudentPassword" parameterType="int" resultType="String">
+		SELECT password FROM `stu_user` WHERE id=#{stuid}
+	</select>
+</mapper>

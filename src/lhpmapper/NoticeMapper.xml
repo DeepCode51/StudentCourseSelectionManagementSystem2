@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.NoticeMapper">
+
+	<insert id="addNoAutitTeachNotice" parameterType="org.lhp.bean.Notice">
+		INSERT INTO `tea_notice` (`tid`, `noticetype`, `noticeinfo`, `check`)
+		VALUES
+		( #{tid},#{noticetype}, #{noticeinfo}, #{check})
+	</insert>
+	
+	<select id="queryTeaNotice" parameterType="int" resultType="org.lhp.bean.Notice">
+		SELECT * FROM `tea_notice` WHERE tid=#{tid} ORDER BY noticeid DESC
+	</select>
+	
+	<insert id="addStudent_AddCourseNotice" parameterType="org.lhp.bean.Notice">
+		INSERT INTO `stu_notice` (`tid`, `noticetype`, `noticeinfo`, `check`)
+		VALUES
+		( #{tid},#{noticetype}, #{noticeinfo}, #{check})
+	</insert>
+
+	<select id="queryStuNotice" parameterType="int" resultType="org.lhp.bean.Notice">
+		SELECT * FROM `stu_notice` WHERE tid=#{stuid} ORDER BY noticeid DESC
+	</select>
+	<!-- Root的日志没有用户之分
+		所以ROOT表中的TID 被用作来区分是课程日志 换上账号日志
+	 -->
+	<select id="queryRootNotice" resultType="org.lhp.bean.Notice">
+		SELECT * FROM `root_notice` ORDER BY noticeid DESC
+	</select>
+
+	<insert id="addRoot_Notice" parameterType="org.lhp.bean.Notice">
+		INSERT INTO `root_notice` (`tid`, `noticetype`, `noticeinfo`, `check`)
+		VALUES
+		( #{tid},#{noticetype}, #{noticeinfo}, #{check})
+	</insert>
+	
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.ProvincesMapperEXT">
+
+	<select id="queryProvinces" resultType="String">
+		SELECT province FROM `provinces`
+	</select>
+	
+	<select id="queryCity" parameterType="String" resultType="String">
+		SELECT city FROM `cities`  where provinceid=(
+			SELECT provinceid FROM `provinces` WHERE province=#{provinte}
+		)
+	</select>
+	
+	<select id="QueryArea" parameterType="String" resultType="String">
+		SELECT area FROM `areas` WHERE cityid=(
+			SELECT cityid FROM `cities`  WHERE city=#{city}
+		)
+	</select>
+</mapper>

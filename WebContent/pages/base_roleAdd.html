@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>角色添加</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+			$("#roleResultrole div div a").hide();
+		
+            $("div.buttonGather > button.back").click(function () {
+                history.back();
+            })
+			
+            $("div.roleFunction div.scrollLeft ul li").click(function () {
+                if($(this).attr("dataNo") != undefined){
+                    $(this).siblings().removeClass("selected");
+                    $(this).addClass("selected");
+                    var $promptText = "#R" + $(this).attr("dataNo");
+                    $("div.roleFunction div.scrollRight ul" + $promptText).siblings().css("display","none");
+                    $("div.roleFunction div.scrollRight ul" + $promptText).css("display","block");
+                }
+            })
+            
+			
+			$("#scrollscrollRight ul li label input").click(function(){
+				var qw=$(this).attr("qw");
+				if($(this).prop('checked')){
+					$("#a"+qw).show();
+				}else{
+					$("#a"+qw).hide();
+				}
+			});
+			
+			$("div.scrollHorizontal h1").click(function () {
+                $(this).toggleClass("open");
+                if($(this).next("div.roleResultContent").css("display") == "none"){
+                    $(this).next("div.roleResultContent").css("display","block");
+					
+                }else{
+                    $(this).next("div.roleResultContent").css("display","none");
+			    }
+            })
+            $("div.scrollHorizontal div.roleResultContent a").click(function () {
+                $(this).hide();
+				var cc=$(this).attr('id').substr(1,2);
+				$("#scrollscrollRight ul li label input[qw="+cc+"]").prop('checked',false);
+            })
+        })
+
+    </script>
+</head>
+<body>
+<header>
+    <div><a href="base_roleList.html">角色列表</a>&nbsp;&rArr;&nbsp;<a href="">创建角色</a></div>
+</header>
+<div class="buttonGather"><button class="back">返回</button></div>
+
+<div class="roleInformation">
+    <div class="roleLeft">
+        <ul>
+            <li><span>课程编号</span>AC001</li>
+            <li><span>课程人数</span><label><input name="roleState" type="radio" checked="checked">启用</label><label><input name="roleState" type="radio">停用</label></li>
+            <li><span>课程名称</span><input type="text"></li>
+        </ul>
+    </div>
+    <div class="roleRight">
+        <div class="textarea">
+            <span>课程描述</span>
+            <textarea></textarea>
+        </div>
+    </div>
+</div>
+<div class="roleFunction">
+    <div class="roleLeft role">
+        <span>课程分类</span>
+        <h1>主类</h1>
+        <div class="scroll scrollLeft">
+            <ul>
+                <li dataNo="1" class="selected">文学方面</li>
+                <li dataNo="2">体育方面</li>
+                <li dataNo="3">艺术方面</li>
+                <li dataNo="4">科学方面</li>
+            </ul>
+        </div>
+    </div>
+    <div class="roleRight role">
+        <h1>详细分类</h1>
+        <div class="scroll scrollRight" id="scrollscrollRight">
+            <ul id="R1" style="display: block">
+                <li><label><input type="checkbox" qw="11" value="我的班级">我的班级</label></li>
+                <li><label><input type="checkbox" qw="12" value="创建班级">创建班级</label></li>
+                <li><label><input type="checkbox" qw="13" value="班级列表">班级列表</label></li>
+              </ul>
+            <ul id="R2">
+                <li><label><input type="checkbox" qw="21" value="教师审核">教师审核</label></li>
+                <li><label><input type="checkbox" qw="22" value="教师列表">教师列表</label></li>
+            </ul>
+            <ul id="R3">
+                <li><label><input type="checkbox" qw="31" value="入学成绩">入学成绩</label></li>
+                <li><label><input type="checkbox" qw="32" value="信息审核">信息审核</label></li>
+				<li><label><input type="checkbox" qw="33" value="学生管理">学生管理</label></li>
+				<li><label><input type="checkbox" qw="34" value="就业信息">就业信息</label></li>
+           </ul>
+            <ul id="R4">
+                <li><label><input type="checkbox" qw="41" value="角色管理">角色管理</label></li>
+           </ul>
+        </div>
+    </div>
+</div>
+<div class="roleResult role" id="roleResultrole">
+    <h1>已选功能<small>(单击移除)</small></h1>
+    <div class="scroll scrollHorizontal">
+        <h1>班级管理</h1>
+        <div class="roleResultContent">
+            <a id="a11">我的班级</a>
+            <a id="a12">班级列表</a>
+            <a id="a13">创建班级</a>
+        </div>
+        <h1>教师管理</h1>
+        <div class="roleResultContent">
+            <a id="a21">教师审核</a>
+            <a id="a22">教师列表</a>
+        </div>
+        <h1>学生管理</h1>
+        <div class="roleResultContent">
+            <a id="a31">入学成绩</a>
+            <a id="a32">信息审核</a>
+            <a id="a33">学生管理</a>
+            <a id="a34">就业信息</a>
+        </div>
+        <h1>权限管理</h1>
+        <div class="roleResultContent">
+            <a id="a41">角色管理</a>
+        </div>
+    </div>
+</div>
+<div class="operationGather"><button class="submit">提&nbsp;&nbsp;&nbsp;&nbsp;交</button><button class="cancel">取&nbsp;&nbsp;&nbsp;&nbsp;消</button></div>
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.scroll").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: false
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->

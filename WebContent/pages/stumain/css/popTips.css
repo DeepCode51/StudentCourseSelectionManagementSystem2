@@ -1,0 +1,235 @@
+.blackBg {
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    background: #FFFFFF;
+    opacity: 0.5;
+    display: none;
+}
+
+.popTips {
+    border: 1px solid #3E5B79;
+    position: fixed;
+    z-index: 1001;
+    left: 50%;
+    top: 50%;
+    background: #FFFFFF;
+    display: none;
+}
+
+.popTips > h1 {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background: #3E5B79;
+    font-size: 16px;
+    color: #FFFFFF;
+    text-indent: 12px;
+    font-weight: lighter;
+}
+
+.popTips > h1 > span {
+    float: right;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.popTips > h1 > span:hover {
+    color: #FF0000;
+}
+
+.popTips > div.warning {
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #ff0000;
+}
+
+.popTips > div.popClassAgo {
+    width: 310px;
+    margin: 20px auto;
+    line-height: 30px;
+}
+
+.popTips > div.popClassAgo > span {
+    margin: 0px 10px;
+}
+
+.popTips > div.popClassAgo > span.classAgo {
+    color: #ffff00;
+}
+
+.popTips > div.popClassAgo > span.classNow {
+    color: #00ff00;
+}
+
+.popTips > div.popClassState{
+    width: 310px;
+    margin: 20px auto;
+    line-height: 30px;
+}
+
+.popTips > div.popClassState > label {
+    width: 30%;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    text-indent: 20px;
+    cursor: pointer;
+    background: url("../images/radioBlue.png") no-repeat left center;
+}
+
+.popTips > div.popClassState > label.checked {
+    background: url("../images/radioBlueChecked.png") no-repeat left center;
+}
+
+.popTips > div.popClassState > label > input {
+    display: none;
+}
+
+.popTips > div.popStudent {
+    width: 210px;
+    margin: 20px auto;
+}
+
+.popTips > div.popStudent > label {
+    width: 45%;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    cursor: pointer;
+    text-indent: 20px;
+    cursor: pointer;
+    background: url("../images/radioBlue.png") no-repeat left center;
+}
+
+.popTips > div.popStudent > label.checked {
+    background: url("../images/radioBlueChecked.png") no-repeat left center;
+}
+
+.popTips > div.popStudent > label > input {
+    display: none;
+}
+
+.popTips > table.content {
+    width: auto;
+    height: auto;
+    margin: 0px auto;
+    line-height: 30px;
+}
+
+.popTips > table.content tr td:first-child {
+    text-align: right;
+    vertical-align: top;
+    color: #999999;
+    padding-right: 12px;
+}
+.popTips > ul.content{
+    width: 350px;
+    height: auto;
+    margin: 0px auto;
+    line-height: 30px;
+}
+.popTips > ul.content li > span{
+    color: #44BCC9;
+}
+
+.popTips > div.button {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.popTips > div.button > button {
+    cursor: pointer;
+    width: 115px;
+    height: 30px;
+    border: 0px;
+    font-size: 16px;
+    font-family: "幼圆";
+    color: #FFFFFF;
+    background: #3E5B79;
+
+}
+
+.popTips > div.button > button:hover {
+    background: #3E5B79;
+}
+
+.popTips > div.textarea {
+    width: 250px;
+    margin: 20px auto;
+}
+
+.popTips > div.textarea > textarea {
+    width: 250px;
+    height: 50px;
+
+}
+
+div.popTeacherSearch > input,div.popClassSearch > input {
+    width: 150px;
+    height: 25px;
+    color: #3E5B79;
+    border: 1px solid #3E5B79;
+    text-indent: 7px;
+}
+
+div.popTeacherSearch > button, div.popClassSearch > button{
+    height: 27px;
+    margin-left: 20px;
+}
+
+.popTips > div.popTeacher,.popTips > div.popClass {
+    height: 160px;
+    overflow: auto;
+}
+
+.popTips > div.popTeacher, .popTips > div.popTeacherSearch {
+    width: 380px;
+    margin: 20px auto;
+}
+.popTips > div.popClass, .popTips > div.popClassSearch {
+    width: 480px;
+    margin: 20px auto;
+}
+
+.popTips > div.popTeacher table,.popTips > div.popClass table{
+    width: 100%;
+    border-collapse: collapse;
+    word-break:keep-all;           /* 不换行 */
+    white-space:nowrap;          /* 不换行 */
+}
+
+.popTips > div.popTeacher table tr:hover,.popTips > div.popClass table tr:hover{
+    background: #ddfafe;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.popTips > div.popTeacher table th,.popTips > div.popClass table th {
+    height: 30px;
+    border: 1px solid #3E5B79;
+    font-weight: lighter;
+    background: #EFEFEF;
+}
+
+.popTips > div.popTeacher table td,.popTips > div.popClass table td {
+    height: 30px;
+    border: 1px solid #3E5B79;
+    text-align: center;
+}
+
+.popTips > div.popTeacher table tr.selected,.popTips > div.popClass table tr.selected{ background: #3E5B79;  }
+.popTips > div.popTeacher table tr.selected td,.popTips > div.popClass table tr.selected td{ color: #FFFFFF;}

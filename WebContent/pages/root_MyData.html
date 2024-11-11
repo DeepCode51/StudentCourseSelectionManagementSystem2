@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>我的消息</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="LayerCss/global.css" media="all">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+    <script type="text/javascript">
+     	var info;
+     	var CurPages=1;
+ 		var PagesLength = 5;//每一页的数据量
+ 		var PagesSum ;//总页数
+    	$(document).ready(function () {
+        	$.ajax({
+				url:"../queryRootNotice.do",
+				type:"post",
+				dataType:"json",
+    			success:function(data){
+    				info=data;
+    				PagesSum = Math.ceil((info.length)/PagesLength);//总页数
+        			pages(info,CurPages);
+    			}
+			  });
+        });
+     	
+     	/*========================分页=========================*/
+     	
+ 		
+     	function pageUp(){
+     		if(CurPages>1){
+	        	CurPages=CurPages-1;
+	        	pages(info,CurPages);
+     		}else{
+     			alert("第一页");
+     		}
+     	}
+     	function pageDown(){
+     		if(CurPages<PagesSum){
+        	CurPages=CurPages+1;
+        	pages(info,CurPages);
+     		}else{
+     			alert("第一页");
+     		}
+     	}
+     	/*========================分页=========================*/
+	
+     	function pages(data,cur){
+     		var s = ((cur-1)*PagesLength);//每一页第一项数据
+     		var x = (PagesLength*cur)-1;//每一页最后一项数据
+			$(".notice").children("td[class='num']").html("");
+			$(".notice").children("td[class='noticeid']").html("");
+			$(".notice").children("td[class='noticetype']").html("");
+			$(".notice").children("td[class='noticeinfo']").html("");
+			$("#cur").html(cur);
+			$("#sum").html(PagesSum);
+			var pl=0;
+			for(var i=s;i<=x;i++){
+				if(data[i].noticetype!=null){
+					$(".notice:eq("+pl+")").children("td[class='num']").html(pl+1);
+					$(".notice:eq("+pl+")").children("td[class='noticeid']").html(i+1);
+					$(".notice:eq("+pl+")").children("td[class='noticetype']").html(data[i].noticetype);
+					$(".notice:eq("+pl+")").children("td[class='noticeinfo']").html(data[i].noticeinfo);
+					pl=pl+1;
+				}
+			}
+     	}
+     	/*======================================================*/
+      </script>
+      <style type="text/css">
+      	body {
+			margin: 20px 30px 0px 30px;
+		}
+      </style>
+</head>
+<body>
+<header>
+    <div><a href="">系统通知</a></div>
+</header>
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0" id="ntable">
+        <tr>
+            <th></th>
+            <th>消息编号</th>
+            <th>消息类型</th>
+            <th>消息详情</th>
+        </tr>
+        <tr class="notice">
+            <td class="num"></td>
+            <td class="noticeid"></td>
+            <td class="noticetype"></td>
+            <td class="noticeinfo"></td>
+        </tr>
+        <tr class="notice">
+            <td class="num"></td>
+            <td class="noticeid"></td>
+            <td class="noticetype"></td>
+            <td class="noticeinfo"></td>
+        </tr>
+        <tr class="notice">
+            <td class="num"></td>
+            <td class="noticeid"></td>
+            <td class="noticetype"></td>
+            <td class="noticeinfo"></td>
+        </tr>
+        <tr class="notice">
+            <td class="num"></td>
+            <td class="noticeid"></td>
+            <td class="noticetype"></td>
+            <td class="noticeinfo"></td>
+        </tr>
+        <tr class="notice">
+            <td class="num"></td>
+            <td class="noticeid"></td>
+            <td class="noticetype"></td>
+            <td class="noticeinfo"></td>
+        </tr>
+    </table>
+</div>
+
+<div style="text-align: center; margin: 20px;"> 
+    <button class="layui-btn"  onclick="pageUp()">
+    	<i class="layui-icon" style="color: #fff">&#xe603;</i>
+    </button>
+    <span style="color:#3E5B79;font-size: 20px;font-weight: bold;">(
+    	<span id="cur" style="color:#3E5B79;font-size: 20px;font-weight: bold;">4</span>
+    	/<span id="sum" style="color:#3E5B79;font-size: 20px;font-weight: bold;">5</span>
+    )</span>
+    
+    <button class="layui-btn" onclick="pageDown();">
+    	<i class="layui-icon" style="color: #fff">&#xe602;</i>
+    </button>
+</div>
+
+</body>
+</html>

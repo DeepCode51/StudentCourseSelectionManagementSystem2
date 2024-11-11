@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>账号管理</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+  
+    <script type="text/javascript">
+        $(document).ready(function () {
+	    	$.ajax({
+				url:"../queryAllTeachRole.do",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					
+					var r1 = $(".RoleOption").clone();
+					$(".RoleOption").remove();
+					$.each(data.queryAllRole,function(i,dt){
+						var r2 = r1.clone();
+						r2.val(dt.roleid);
+						r2.html(dt.rolename);
+						$(".RoleSelect").append(r2);
+					});
+					
+					if(data.list.length>0){
+						var c1=$(".tinfo").clone();
+	    				$(".tinfo").remove();
+	    				$.each(data.list,function(i,dt){
+	    					var c2=c1.clone();
+	    					c2.children("td[class='num']").html(i);
+	    					c2.children("td[class='tid']").html(dt.id);
+	    					c2.children("td[class='username']").html(dt.username);
+	    					c2.children("td[class='tname']").html(dt.teachinfo.name);
+	    					c2.children("td[class='sex']").html(dt.teachinfo.sex);
+	    					c2.children("td[class='major']").html(dt.teachinfo.major);
+	    					c2.children("td[class='role']").children("select").children("option[value="+dt.role+"]").attr("selected","selected");
+	    					$("#teatable").append(c2);
+	    				});
+					}
+				}
+	    	});
+        });
+        function ModifyTeacherRole(obj){
+        	var roleid = $(obj).parent("td").siblings("[class='role']").children("select").val();
+        	var tid = $(obj).parent("td").siblings("[class='tid']").html();
+	    	$.ajax({
+				url:"../ModifyTeacherRole.do",
+				type:"post",
+				dataType:"json",
+				data:"roleid="+roleid+"&tid="+tid,
+				success:function(data){
+					if(data=="true"){
+						layer.alert("修改成功");
+					}
+				}
+	    	});
+        }
+    </script>
+    <style type="text/css">
+    	.RoleSelect{
+    		height: 30px;
+    		width: 150px;
+    		border: 1px #3e5b79 solid;
+    		font-size: 16px;
+    		color: #3e5b79;
+    		
+    	}
+    	option{
+    		height: 30px;
+    		color: #3e5b79;
+    		cursor: pointer;
+    		font-size: 16px;
+    	}
+    	header{
+    		margin-top: 10px;
+    	}
+    </style>
+</head>
+<body>
+<header>
+    <div><a href="">账号管理</a></div>
+</header>
+<div class="tableList">
+    <table border="0"  id="teatable" style="margin: 20px 0px">
+        <tr>
+            <th width="20"></th>
+            <th width="20">教师编号</th>
+            <th width="70">帐号</th>
+            <th width="70">姓名</th>
+            <th width="40">性别</th>
+            <th width="80">专业</th>
+            <th width="100">角色</th>
+            <th width="20"></th>
+        </tr>
+        
+        <tr class="tinfo">
+            <td class="num"></td>
+            <td class="tid"></td>
+            <td class="username"></td>
+            <td class="tname"></td>
+            <td class="sex"></td>
+            <td class="major"></td>
+            <td class="role">
+            	<select name="interest" class="RoleSelect">
+						<option value="0" class="RoleOption">写作</option>
+				</select>
+			</td>
+			<td>
+				<button class="layui-btn layui-btn-normal layui-btn-radius" onclick="ModifyTeacherRole(this)">修改</button>
+			</td>
+        </tr>
+        
+    </table>
+</div>
+<div class="tablePage">
+    <div>共<span>34</span>条记录，每页<span>10</span>条，共<span>4</span>页</div>
+    <a href="" class="pageTop"></a>
+    <a href="" class="pageUp"></a>
+    <em><input type="text" name="tablePage"></em>
+    <a href="" class="pageDown"></a>
+    <a href="" class="pageBottom"></a>
+</div>
+
+</body>
+</html>

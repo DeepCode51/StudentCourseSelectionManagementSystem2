@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学弥途远校本课程选课系统-学生端</title>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+</head>
+<body>
+
+<section>
+    <div class="left">
+    	<div class="tlog">
+    		<img alt="学弥途远" src="images/log.png" >
+    	</div>
+    	
+        <div class="shadowDouble"></div>
+		    <span class="user">学生用户:<span style="color: #fff" id="name"></span></span>
+        <div class="shadowDouble"></div>
+		<nav>
+			<div class="classA">
+				<a href="about.htm" target="lemon">首页</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="stu_MyCourse.html" target="lemon">我的选课</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="stu_addCourse.html" target="lemon">网上选课</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="stu_MyScore.html" target="lemon">往期课程</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="stu_StudentInfo.html" target="lemon">我的账号</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="stu_MyData.html" target="lemon">系统消息</a>
+			</div>
+            <div class="shadowDouble"></div>
+			
+			<div class="classA">
+				<a href="index.html">退出</a>
+			</div>
+            <div class="shadowDouble"></div>
+			
+		
+            
+        </nav>
+    </div>
+    <div class="right"><iframe name="lemon" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ src="about.htm"></iframe></div>
+</section>
+
+</body>
+</html>
+
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("nav").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: false,
+            });
+        });
+
+    })(jQuery);
+</script>

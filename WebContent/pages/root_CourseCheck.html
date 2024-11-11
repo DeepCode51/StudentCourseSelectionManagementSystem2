@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>我的课程</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="LayerCss/global.css" media="all">
+    <style type="text/css">
+    	body{
+    		padding: 10px 30px;
+    	}
+    	.ui-select{
+    		height: 30px;
+    		width: 100px;
+    		border: 1px #3e5b79 solid;
+    		font-size: 16px;
+    		color: #3e5b79;
+    		cursor: pointer;
+    	}
+    	option{
+    		height: 30px;
+    		color: #3e5b79;
+    		cursor: pointer;
+    		font-size: 16px;
+    	}
+    	.syyk{
+    		font-weight: bold;
+    		color: #333;
+    	}
+    	.button1{
+    		background: #333;
+    		color: #fff;
+    		cursor: pointer;
+    		padding: 10px 20px 10px 20px;
+    	}
+    	.button1:HOVER {
+			background: #555;
+			color: #fff;
+		}
+    	.button2{
+    		background: #333;
+    		color: #fff;
+    		cursor: pointer;
+    	}
+    	.button2:HOVER {
+			background: #555;
+			color: #fff;
+		}
+    </style>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	$.ajax({
+				url:"../queryNoAuditCourse.do",
+				type:"post",
+				dataType:"json",
+    			success:function(data){
+    				if(data.length>0){
+	    				var c1=$(".courseinfo").clone();
+	    				$(".courseinfo").remove();
+	    				$.each(data,function(i,dt){
+	    					var c2=c1.clone();
+	    					c2.children("td[class='num']").html(i);
+	    					c2.children("td[class='num']").attr("tid",dt.teachuid.id);
+	    					c2.children("td[class='id']").html(dt.id);
+	    					c2.children("td[class='name']").html(dt.course_name);
+	    					c2.children("td[class='type']").html(dt.course_type);
+	    					c2.children("td[class='info']").html(dt.course_info);
+	    					c2.children("td[class='teaname']").html(dt.teachuid.name);
+	    					$("#ctable").append(c2);
+	    				});
+    				}
+    			}
+        	});
+        });
+        
+        function query(){
+        	var cname = $("#queryname").val();
+        	var tname = $("#queryteaname").val();
+        	var ctype = $("#querytype").val();
+        	if(ctype=="课程分类"){
+        		ctype="";
+        	}
+        	$.ajax({
+				url:"../onTermNoAuditCourse.do",
+				type:"post",
+				dataType:"json",
+				data:"cname="+cname+"&tname="+tname+"&ctype="+ctype,
+    			success:function(data){
+	    				var c1=$(".courseinfo:first").clone();
+	    				$(".courseinfo").remove();
+    				if(data.length>0){
+	    				$.each(data,function(i,dt){
+	    					var c2=c1.clone();
+	    					c2.children("td[class='num']").html(i);
+	    					c2.children("td[class='num']").attr("tid",dt.teachuid.id);
+	    					c2.children("td[class='id']").html(dt.id);
+	    					c2.children("td[class='name']").html(dt.course_name);
+	    					c2.children("td[class='type']").html(dt.course_type);
+	    					c2.children("td[class='info']").html(dt.course_info);
+	    					c2.children("td[class='teaname']").html(dt.teachuid.name);
+	    					$("#ctable").append(c2);
+	    				});	
+    				}else{
+	    					var c2=c1.clone();
+	    					c2.children("td[class='num']").html("");
+	    					c2.children("td[class='id']").html("");
+	    					c2.children("td[class='name']").html("");
+	    					c2.children("td[class='type']").html("");
+	    					c2.children("td[class='info']").html("");
+	    					c2.children("td[class='teaname']").html("");
+	    					$("#ctable").append(c2);
+    				}
+    			}
+			});
+        }
+        function PassCourse(obj){
+         	var cid = $(obj).parent("td").siblings("td[class='id']").html();
+        	var cname = $(obj).parent("td").siblings("td[class='name']").html();
+        	var tid = $(obj).parent("td").siblings("td[class='num']").attr("tid");
+        	$.ajax({
+				url:"../CourseAduitReturnYES.do",
+				type:"post",
+				dataType:"json",
+				data:"cid="+cid+"&cname="+cname+"&tid="+tid,
+    			success:function(data){
+    	        	layer.alert("课程通过审核",{
+    	        		  icon:'1',
+    	        		  yes: function(index){
+    	        		   	location.href="root_CourseCheck.html";
+    	        		  }
+    	        	});   
+    			}
+			});
+     
+        }
+        function NoPassCourse(obj){
+        	var cid = $(obj).parent("td").siblings("td[class='id']").html();
+        	var cname = $(obj).parent("td").siblings("td[class='name']").html();
+        	var tid = $(obj).parent("td").siblings("td[class='num']").attr("tid");
+        	$.ajax({
+				url:"../CourseAduitReturnNO.do",
+				type:"post",
+				dataType:"json",
+				data:"cid="+cid+"&cname="+cname+"&tid="+tid,
+    			success:function(data){
+    	        	layer.alert("课程不通过审核",{
+  	        		  icon:'1',
+  	        		  yes: function(index){
+  	        		   	location.href="root_CourseCheck.html";
+  	        		  }
+  	        	});
+    			}
+			});
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div><a href="">选择课程</a></div>
+</header>
+<div class="tableDetails">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th>课程名称</th><td><input type="text" id="queryname"></td>
+            <th>教师</th><td><input type="text" id="queryteaname"></td>
+            <th>课程分类</th>
+            <td>
+                <div style="width: 150px; display: inline-block; vertical-align:top;">
+                    <select id="querytype" class="ui-select">
+                        <option value="课程分类" selected="selected">课程分类</option>
+                        <option value="体育类">体育类</option>
+                        <option value="艺术类">艺术类</option>
+                        <option value="文化类">文化类</option>
+                        <option value="科技类">科技类</option>
+                    </select>
+                </div>
+            </td>
+
+            <td><input type="button" class="button2" onclick="query()" value="搜素" style="width: 100px;height: 37px;" ></td>
+        </tr>
+
+    </table>
+</div>
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0" id="ctable" >
+        <tr>
+            <th></th>
+            <th>课程编号</th>
+            <th>课程分类</th>
+            <th>课程名称</th>
+            <th>课程描述</th>
+            <th>课程教师</th>
+            <th >课程状态</th>
+        </tr>
+        <tr class="courseinfo">
+            <td class="num" tid=""></td>
+            <td class="id"></td>
+            <td class="type"></td>            
+            <td class="name"></td>
+            <td class="info"></td>
+            <td class="teaname"></td>
+            <td width="200px;">
+            	<button onclick="PassCourse(this)" class="layui-btn layui-btn-warm layui-btn-radius">&nbsp;通过&nbsp;</button>
+				<button onclick="NoPassCourse(this)" class="layui-btn layui-btn-danger layui-btn-radius">不通过</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<div class="tablePage">
+    <div>共<span>34</span>条记录，每页<span>10</span>条，共<span>4</span>页</div>
+    <a href="" class="pageTop"></a>
+    <a href="" class="pageUp"></a>
+    <em><input type="text" name="tablePage"></em>
+    <a href="" class="pageDown"></a>
+    <a href="" class="pageBottom"></a>
+</div>
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<style>
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        border-radius: 0;
+        margin: 0;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        /* 2nd scrollbar dragger style... */
+        background-color: #355372;
+        height: 10px;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        height: 8px;
+        border: 1px solid #355372;
+        background-color: #FFFFFF;
+    }
+</style>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.tableList").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: true
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->

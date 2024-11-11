@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>教师审核</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="LayerCss/global.css" media="all">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+	    	$.ajax({
+				url:"../queryNoAuditTeacherList.do",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					if(data.length>0){
+						var c1=$(".tinfo").clone();
+	    				$(".tinfo").remove();
+	    				$.each(data,function(i,dt){
+	    					var c2=c1.clone();
+	    					c2.children("td[class='num']").html(i);
+	    					c2.children("td[class='tid']").html(dt.id);
+	    					c2.children("td[class='username']").html(dt.username);
+	    					c2.children("td[class='tname']").html(dt.teachinfo.name);
+	    					c2.children("td[class='sex']").html(dt.teachinfo.sex);
+	    					c2.children("td[class='major']").html(dt.teachinfo.major);
+	    					$("#teatable").append(c2);
+	    				});
+					}
+				}
+	    	});
+        });
+        function AuditTea(obj){
+        	if($(obj).parent("td").siblings("[class='num']").html()!=""){
+        		var tid = $(obj).parent("td").siblings("[class='tid']").html();
+        		location.href = "root_teacherAuditTranslate.html?tid="+tid;
+        	}
+        }
+    </script>
+    <style type="text/css">
+		body{
+			padding: 40px 50px;
+		}
+    </style>
+</head>
+<body>
+<header style="margin: 10px 0px 10px ">
+    <div><a href="">待审核教师</a></div>
+</header>
+<div class="tableList">
+    <table border="0"  id="teatable" style="margin: 20px 0px 30px">
+        <tr>
+            <th width="30"></th>
+            <th width="50">教师编号</th>
+            <th width="100">帐号</th>
+            <th width="100">姓名</th>
+            <th width="70">性别</th>
+            <th width="100">专业</th>
+            <th width="50"></th>
+        </tr>
+        <tr class="tinfo">
+            <td class="num"></td>
+            <td class="tid"></td>
+            <td class="username"></td>
+            <td class="tname"></td>
+            <td class="sex"></td>
+            <td class="major"></td>
+            <td>
+               <button class="layui-btn" onclick="AuditTea(this);">查看详情</button>
+            </td>
+        </tr>
+        
+    </table>
+</div>
+<div class="tablePage">
+    <div>共<span>34</span>条记录，每页<span>10</span>条，共<span>4</span>页</div>
+    <a href="" class="pageTop"></a>
+    <a href="" class="pageUp"></a>
+    <em><input type="text" name="tablePage"></em>
+    <a href="" class="pageDown"></a>
+    <a href="" class="pageBottom"></a>
+</div>
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<style>
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        border-radius: 0;
+        margin: 0;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        /* 2nd scrollbar dragger style... */
+        background-color: #355372;
+        height: 10px;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        height: 8px;
+        border: 1px solid #355372;
+        background-color: #FFFFFF;
+    }
+</style>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.tableList").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: true
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+	<!-- 数据库数据源 配置 -->
+	
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:jdbc.properties" />
+	</bean>
+	
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+
+		<property name="initialPoolSize" value="2" />
+		<property name="maxPoolSize" value="50" />
+		<property name="minPoolSize" value="2" />
+		<property name="maxIdleTime" value="3000" />
+		<property name="autoCommitOnClose" value="true" />
+
+		<!-- 掉线重连,保持活动连接 -->
+		<property name="breakAfterAcquireFailure" value="false"></property>
+		<property name="testConnectionOnCheckout" value="false"></property>
+		<property name="testConnectionOnCheckin" value="false"></property>
+		<property name="idleConnectionTestPeriod" value="60"></property>
+		<property name="acquireRetryAttempts" value="10"></property>
+		<property name="acquireRetryDelay" value="1000"></property>
+	</bean>
+
+	
+
+	<!-- 事务管理配置 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="DataSource" />
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="create*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="remove*" propagation="REQUIRED" isolation="DEFAULT" timeout="-1"
+				read-only="false" rollback-for="java.lang.Exception" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="txMethods" expression="execution(* com.lhp.service.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txMethods" />
+		<!-- 上面两行针对接口配置，可重复配置多个 -->
+	</aop:config>
+
+<!-- 启动加载 mybatis    创建SqlSessionFactory，同时指定数据源-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="DataSource" />
+		<!-- 指定sqlMapConfig总配置文件，订制的environment在spring容器中不在生效--> 
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		 <!--指定实体类映射文件，可以指定同时指定某一包以及子包下面的所有配置文件，mapperLocations和configLocation 有一个即可，当需要为实体类指定别名时，可指定configLocation属性，再在mybatis总配置文件中采用mapper引入实体类映射文件 -->  
+		<property name="mapperLocations" value="classpath:lhpmapper/*.xml" />
+	</bean>
+
+</beans>

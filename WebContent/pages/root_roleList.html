@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<title>角色列表</title>
+<link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+<link rel="stylesheet" href="LayerCss/global.css" media="all">
+<link rel="stylesheet"
+	href="plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="LayerCss/table.css" />
+<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+<script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+		
+<script type="text/javascript">
+	$(document).ready(function() {
+		
+    	$.ajax({
+    		url:"../QueryAllRole.do",
+    		type:"post",
+    		dataType:"json",
+    		success:function(data){
+    			if(data.length>0){
+	    			var c1 = $(".courseinfo").clone();
+	    			$(".courseinfo").remove();
+	    			$.each(data,function(i,dt){
+	    				var c2 = c1.clone();
+	    				c2.children("td[class='num']").html(i);
+						c2.children("td[class='roleid']").html(dt.roleid);
+						c2.children("td[class='rolename']").html(dt.rolename);
+						c2.children("td[class='roleinfo']").html(dt.roleinfo);
+	    				$("#ctable").append(c2);
+	    			});
+    			}
+    		}
+    	});
+		
+		$("#add").click(function(){
+			location.href = "root_AddRole.html";
+		});
+	});
+	function RoleModify(obj){
+		var rid = $(obj).parent().siblings("[class='roleid']").html();
+		location.href = "root_RoleModify.html?rid="+rid;
+	}
+</script>
+<style type="text/css">
+#add {
+	margin-left: 30px;
+}
+body{
+	padding: 0px 30px;
+}
+</style>
+</head>
+<body>
+	<header>
+		<div>
+			<a href="">权限管理</a>
+		</div>
+	</header>
+
+	<a href="javascript:;" class="layui-btn layui-btn-small" id="add"
+		style="color: #fff;"> <i class="layui-icon" style="color: #fff;">&#xe608;</i>
+		添加角色
+	</a>
+
+	<div class="admin-main">
+		<fieldset class="layui-elem-field" >
+			<legend>
+				角色列表
+			</legend>
+
+			<div class="tableList" style="margin: 10px 10px 20px 10px;">
+				<table border="0" cellpadding="0" cellspacing="0" id="ctable">
+					<tr>
+						<th width="10"></th>
+						<th width="30">角色编号</th>
+						<th width="30">角色名称</th>
+						<th width="100">角色描述</th>
+						<th width="20">修改角色</th>
+					</tr>
+					<tr class="courseinfo">
+						<td class="num"></td>
+						<td class="roleid"></td>
+						<td class="rolename"></td>
+						<td class="roleinfo"></td>
+						<td><button class="layui-btn layui-btn-danger" onclick="RoleModify(this)">
+								<i class="layui-icon" style="color: #fff;"></i>
+							</button>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+
+
+		</fieldset>
+	</div>
+</body>
+</html>

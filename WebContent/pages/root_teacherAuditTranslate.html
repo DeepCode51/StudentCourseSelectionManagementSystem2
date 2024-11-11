@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>教师审核-教师信息</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="LayerCss/global.css" media="all">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/GetUrlParam.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+  
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	var tid=getUrlParam("tid");
+	    	$.ajax({
+				url:"../queryNoAuditTeacher.do",
+				type:"post",
+				dataType:"json",
+				data:"tid="+tid,
+				success:function(data){
+    				$("#username").html(data.username);
+    				$("#id").html(data.id);
+    				$("#name").html(data.teachinfo.name);
+    				$("#sex").html(data.teachinfo.sex);
+    				$("#idCard").html(data.teachinfo.idcard);
+    				$("#phone").html(data.teachinfo.phonenumber);
+    				$("#province").html(data.teachinfo.provinces);
+    				$("#eduction").html(data.teachinfo.eduction);
+    				$("#school").html(data.teachinfo.school);
+    				$("#major").html(data.teachinfo.major);
+    				$("#tname").html(data.teachinfo.name);
+				}
+	    	});
+            $("#back").click(function () {
+            	location.href = "root_teacherAudit.html";
+            });
+        });
+		function PassCourse(obj){
+	    	$.ajax({
+				url:"../QueryAllRole.do",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+	    			if(data.length>0){
+		    			var c1 = $(".RoleOption:first").clone();
+		    			$(".RoleOption").remove();
+		    			$.each(data,function(i,dt){
+		    				var c2 = c1.clone();
+		    				c2.html(dt.rolename);
+		    				c2.val(dt.roleid);
+		    				$(".RoleSelect").append(c2);
+		    			});
+	    			}
+				}});
+	    	
+			var pc = layer.open({
+				  title:"账号审核",
+				  type: 1,
+				  offset: '100px',
+				  btn: ['确认', '取消'],
+				  btnAlign: 'c',
+				  btn1: function(index, layero){
+					  var select = $(layero).children("div").children("select");  
+					  var roleid = select.val();
+					  var tid=getUrlParam("tid");
+					  $.ajax({
+							url:"../TeacherAuditAndModify.do",
+							type:"post",
+							dataType:"json",
+							data:"roleid="+roleid+"&tid="+tid,
+							success:function(data){
+								location.href = "root_teacherAudit.html";
+							}
+				    	});
+					  },
+				  skin: 'layui-layer-rim', //加上边框
+				  area: ['310px', '200px'], //宽高
+				  content:$(".tcdiv").html()
+			});
+		}
+		
+		function NoPassCourse(obj){
+			var nc = layer.open({
+				  title:"账号审核",
+				  type: 1,
+				  offset: '100px',
+				  btn: ['确认', '取消'],
+				  btnAlign: 'c',
+				  btn1: function(index, layero){
+					  var yuanyin = $(layero).children("div").children("input").val();  
+					  var tid=getUrlParam("tid");
+					  $.ajax({
+							url:"../addNoAutitTeachNotice.do",
+							type:"post",
+							dataType:"json",
+							data:"yuanyin="+yuanyin+"&tid="+tid,
+							success:function(data){
+								location.href = "root_teacherAudit.html";
+							}
+				    	});
+				  	},
+				  skin: 'layui-layer-rim', //加上边框
+				  area: ['310px', '200px'], //宽高
+				  content:$(".NoAudit").html()
+			});
+		}
+    </script>
+    <style type="text/css">
+        	.RoleSelect{
+	    		height: 30px;
+	    		width: 210px;
+	    		border: 1px #3e5b79 solid;
+	    		font-size: 16px;
+	    		color: #3e5b79;
+	    		margin: 0px 0px 0px 45px;
+	    	}
+	    	option{
+	    		height: 30px;
+	    		color: #3e5b79;
+	    		cursor: pointer;
+	    		font-size: 16px;
+	    	}
+	    	#tcTile{
+	    		color: #3e5b79;
+	    		font-weight: bold;
+	    		font-size: 17px;
+	    		margin: 60px;
+	    	}
+	    	#yuanyin{
+	    		height: 30px;
+	    		width: 200px;
+	    		border: 1px #3e5b79 solid;
+	    		font-size: 16px;
+	    		color: #3e5b79;
+	    		margin: 0px 0px 0px 55px;
+	    	}
+    </style>
+</head>
+<body>
+<header>
+    <div><a href="">待审核教师</a>&nbsp;&rAarr;&nbsp;<a href=""></a><a href="">待审核教师档案</a></div>
+</header>
+<div class="buttonGather">
+	<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-small" id="back">
+			<i class="layui-icon">&#xe603;</i> 返回
+	</a>
+</div>
+<br>
+<ul class="finishInformation">
+    <li>
+        <ul>
+			<li><span>账号</span><span id="username">正常</span></li>
+            <li><span>教师编号</span><span id="id">TH006001</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>姓名</span><span id="name">教学部</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>性别</span><span id="sex">讲师</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>身份证号</span><span id="idCard">Android开发</span></li>
+        </ul>
+    </li>
+    
+    <li>
+        <ul>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>手机号码</span><span id="phone">13934567890</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>籍贯</span><span id="province">黑龙江</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>学校</span><span id="school">渭南师范学院</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>学历</span><span id="eduction">硕士</span></li>
+            <li class="auditWarning" title="标红表示此项为问题项"><span>所学专业</span><span id="major">计算机软件</span></li>
+        </ul>
+    </li>
+</ul>
+
+<div class="operationGather">
+    <button onclick="PassCourse(this)" class="layui-btn layui-btn-warm layui-btn-radius">&nbsp;通过&nbsp;</button>
+	<button onclick="NoPassCourse(this)" class="layui-btn layui-btn-danger layui-btn-radius">不通过</button>
+</div>
+
+
+<div style="display: none;" class="tcdiv">
+	<span id="tcTile">请选择此用户的角色</span>
+	<br><br>
+	<select name="interest" class="RoleSelect" >
+			<option value="0" class="RoleOption">写作</option>
+	</select>
+</div>
+
+<div style="display: none;" class="NoAudit">
+	<span id="tcTile">请输入不通过审核原因</span>
+	<br><br>
+	<input type="text" id="yuanyin" value=""/>
+</div>
+
+</body>
+</html>

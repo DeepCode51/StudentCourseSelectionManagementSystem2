@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:tx="http://www.springframework.org/schema/tx"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:websocket="http://www.springframework.org/schema/websocket"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.2.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+http://www.springframework.org/schema/websocket
+http://www.springframework.org/schema/websocket/spring-websocket-4.2.xsd ">  
+<!-- 启用注解 -->
+<!-- <context:annotation-config /> 使用了context:component-scan
+								   他就可以扔掉了 -->
+								   
+<mvc:annotation-driven/>
+<context:component-scan base-package="org.lhp.controller,org.lhp.service"/>
+
+<!-- 加载数据库配置文件 -->
+<import resource="classpath:dataSourceContext.xml" />
+
+<!-- dao创建 通过这个对象可以操作数据库-->
+<bean id="baseDao" class="org.lhp.dao.BaseDaoImpl">
+		<property name="sqlSessionFactory">
+			<ref bean="sqlSessionFactory" />
+		</property>
+	
+</bean>
+
+<!-- 拦截器 
+<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/**" />  
+        <bean class="com.lhpbei.interceptor.CommonInterceptor"></bean>    
+    </mvc:interceptor>
+</mvc:interceptors>
+    -->
+</beans>

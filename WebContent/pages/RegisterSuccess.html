@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学弥途远校本课程选课系统-注册成功</title>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <style type="text/css">
+    	body {
+			background: #393D49;
+		}
+		h1{
+			color: #eee;
+			text-align: center;
+		}
+		a{
+			color: #ffa;
+		}
+		div{
+			width: 50%;
+			text-align: center;
+			background: #666;
+			margin-left: 25%;
+			margin-top: 5%;
+			border: 5px solid #333;
+		}
+    </style>
+    <script type="text/javascript">
+    	var i=10;
+    	function returnIndex(){
+    		i=i-1;
+    		$("#tim").html(i);
+    		if(i==0){
+    			window.location.href="index.html";
+    		}
+    	}
+    	 $(document).ready(function () {
+    		setInterval("returnIndex()",1000);
+    	});
+    </script>
+</head>
+<body>
+
+	<img id="login" src="images/logo.png">
+	
+	<hr color="#3495e5" size="6px">
+	<br>
+	<br>
+	<div>
+	<br>
+	<h1>恭喜你，注册成功</h1>
+	<br>
+	<br>
+	<a href="index.html"><span id="tim">10</span>秒后返回主页</a>
+	<br>
+	<br>
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<hr color="#3495e5" size="6px">
+	
+
+</body>
+</html>

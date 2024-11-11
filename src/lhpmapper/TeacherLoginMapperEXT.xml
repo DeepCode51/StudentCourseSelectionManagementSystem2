@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.lhp.mapper.TeacherLoginMapper">
+
+<!-- 教师注册 -->	
+	<select id="queryUsernameExits" parameterType="String" resultType="int">
+		SELECT count(0) FROM `tea_user` where username=#{string}
+	</select>
+	
+	<insert id="teacherInfo" parameterType="org.lhp.bean.Teacher"
+			useGeneratedKeys="true"
+			keyProperty="id">
+		INSERT INTO `tea_info` (`name`, `sex`, `idcard`, `phonenumber`, `provinces`, `eduction`, `school`, `major`)
+		VALUES 
+		(#{name},#{sex}, #{idcard},#{phonenumber},#{provinces},#{eduction},#{school},#{major})
+	</insert>
+	
+	<insert id="teacherRegister" parameterType="org.lhp.bean.TeacherUser">
+		INSERT INTO `tea_user` (`username`, `password`, `role`, `infoid`)
+		VALUES
+		(#{username},#{password},#{role},#{infoid})
+	</insert>
+<!-- 登录 -->
+	<select id="queryPassword" parameterType="String" resultType="String">
+		SELECT password FROM `tea_user`  WHERE (username=#{username})
+	</select>
+	
+	<select id="queryId" parameterType="String" resultType="int">
+		SELECT id FROM `tea_user`  WHERE (username=#{username})
+	</select>  
+	
+	<select id="queryName" parameterType="int" resultType="String">
+		SELECT name FROM tea_user tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE tu.id=#{id}
+	</select>
+	
+	<select id="queryRole" parameterType="int" resultType="org.lhp.bean.RoleInfo">
+		SELECT * FROM `roleinfo`
+		WHERE roleid=(
+			SELECT t.role FROM tea_user t WHERE t.id=#{tid}
+		)
+	</select>
+<!-- 教师信息 -->
+	<resultMap type="org.lhp.bean.Teacher" id="TeachInfo">
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="idcard" column="idcard"/>
+		<result property="phonenumber" column="phonenumber"/>
+		<result property="provinces" column="provinces"/>
+		<result property="eduction" column="eduction"/>
+		<result property="school" column="school"/>
+		<result property="major" column="major"/>
+	</resultMap>
+	<resultMap type="org.lhp.bean.TeacherUserRt" id="TeacherInfoRt">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<association property="teachinfo" resultMap="TeachInfo"></association>
+	</resultMap>
+	
+	<select id="queryTeachInfo" parameterType="int" resultMap="TeacherInfoRt">
+		SELECT tu.id,username,`name`, `sex`, `idcard`, `phonenumber`, `provinces`, `eduction`, `school`, `major` 
+		FROM `tea_user` tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE tu.id=#{tid}
+	</select>
+<!-- 修改信息 -->
+	<update id="TeachInfoModify" parameterType="org.lhp.bean.TeacherUserRt">
+		UPDATE `tea_info` SET `name`=#{teachinfo.name}, `sex`=#{teachinfo.sex}, `idcard`=#{teachinfo.idcard}, `phonenumber`=#{teachinfo.phonenumber}, `provinces`=#{teachinfo.provinces}, `eduction`=#{teachinfo.eduction}, `school`=#{teachinfo.school}, `major`=#{teachinfo.major}
+		WHERE id=(SELECT infoid FROM tea_user WHERE id=#{id})
+	</update>
+<!-- 修改密码 -->
+		
+	<select id="ByIdqueryPassword" parameterType="int" resultType="String">
+		SELECT password FROM `tea_user` where id=#{tid}
+	</select>
+	
+	<update id="ModifyPassword" parameterType="Map">
+		UPDATE `tea_user` SET `password`=#{password} WHERE (`id`=#{tid})
+	</update>
+</mapper>

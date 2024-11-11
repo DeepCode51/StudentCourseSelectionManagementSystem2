@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>往期课程成绩</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="LayerCss/global.css" media="all">
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="LayerCss/table.css" />
+  
+    
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+		var info;
+ 		var CurPages=1;
+		var PagesLength = 5;//每一页的数据量
+		var PagesSum ;//总页数    
+        $(document).ready(function () {
+        	$.ajax({
+        		url:"../queryStuMyCourseAndScore.do",
+        		type:"post",
+        		dataType:"json",
+        		success:function(data){
+    				info=data;
+    				PagesSum = Math.ceil((info.length)/PagesLength);//总页数
+        			pages(info,CurPages);					
+        		}
+        	});
+        });
+        function saveScor(){
+         	location.href="../UploadWord.do";
+        }
+        /*========================分页开始=========================*/
+     	function pageUp(){
+     		if(CurPages>1){
+	        	CurPages=CurPages-1;
+	        	pages(info,CurPages);
+     		}else{
+     			
+     		}
+     	}
+     	function pageDown(){
+     		if(CurPages<PagesSum){
+        	CurPages=CurPages+1;
+        	pages(info,CurPages);
+     		}else{
+     		
+     		}
+     	}
+	
+     	function pages(data,cur){
+     		var s = ((cur-1)*PagesLength);//每一页第一项数据
+     		var x = (PagesLength*cur)-1;//每一页最后一项数据
+			$("#cur").html(cur);
+			$("#sum").html(PagesSum);
+			$(".course").children("td[class='num']").html("");
+			$(".course").children("td[class='cid']").html("");
+			$(".course").children("td[class='cname']").html("");
+			$(".course").children("td[class='ctype']").html("");
+			$(".course").children("td[class='cinfo']").html("");
+			$(".course").children("td[class='tname']").html("");
+			$(".course").children("td[class='score']").html("");
+			var pl=0;
+			for(var i=s;i<=x;i++){
+				if(i<data.length){
+ 					$(".course:eq("+pl+")").attr("id","tr"+i);
+ 					$(".course:eq("+pl+")").children("td[class='num']").html(i);
+ 					$(".course:eq("+pl+")").children("td[class='cid']").html(data[i].courseRt.id);
+ 					$(".course:eq("+pl+")").children("td[class='cname']").html(data[i].courseRt.course_name);
+ 					$(".course:eq("+pl+")").children("td[class='ctype']").html(data[i].courseRt.course_type);
+ 					$(".course:eq("+pl+")").children("td[class='cinfo']").html(data[i].courseRt.course_info);
+ 					$(".course:eq("+pl+")").children("td[class='tname']").html(data[i].courseRt.teachuid.name);
+ 					$(".course:eq("+pl+")").children("td[class='score']").html(data[i].Score);
+				}
+				pl=pl+1;
+			}
+     	}
+     	/*========================结束=========================*/
+    </script>
+    <style type="text/css">
+    	body{
+    		padding: 30px;
+    	}
+    </style>
+</head>
+<body>
+    <button style="margin-bottom: 20px;" class="layui-btn layui-btn-small" onclick="saveScor()">
+		<i class="layui-icon" style="color: #fff">&#xe621;</i>
+		导出成绩为word文档
+	</button>
+
+<div class="tableList">
+<table border="0" cellpadding="0" cellspacing="0" id="ctable">
+        <tr >
+            <th></th>
+            <th >课程编号</th>
+            <th >课程名称</th>
+            <th >课程类型</th>
+            <th >课程描述</th>
+            <th >教师姓名</th>
+            <th >成绩</th>
+        </tr>
+        <tr class="course">
+            <td class="num"></td>
+            <td class="cid"></td>
+            <td class="cname"></td>
+            <td class="ctype"></td>            
+            <td class="cinfo"></td>
+            <td class="tname"></td>
+            <td class="score"></td>
+        </tr>
+        <tr class="course">
+            <td class="num"></td>
+            <td class="cid"></td>
+            <td class="cname"></td>
+            <td class="ctype"></td>            
+            <td class="cinfo"></td>
+            <td class="tname"></td>
+            <td class="score"></td>
+        </tr>
+        <tr class="course">
+            <td class="num"></td>
+            <td class="cid"></td>
+            <td class="cname"></td>
+            <td class="ctype"></td>            
+            <td class="cinfo"></td>
+            <td class="tname"></td>
+            <td class="score"></td>
+        </tr>
+        <tr class="course">
+            <td class="num"></td>
+            <td class="cid"></td>
+            <td class="cname"></td>
+            <td class="ctype"></td>            
+            <td class="cinfo"></td>
+            <td class="tname"></td>
+            <td class="score"></td>
+        </tr>
+       
+    </table>
+</div>
+
+<div style="text-align: center; margin: 20px;"> 
+    <button class="layui-btn" id="pageUp"  onclick="pageUp()">
+    	<i class="layui-icon" style="color: #fff">&#xe603;</i>
+    </button>
+    <span style="color:#3E5B79;font-size: 20px;font-weight: bold;">(
+    	<span id="cur" style="color:#3E5B79;font-size: 20px;font-weight: bold;">4</span>
+    	/<span id="sum" style="color:#3E5B79;font-size: 20px;font-weight: bold;">5</span>
+    )</span>
+    
+    <button class="layui-btn" id="pageDown" onclick="pageDown();">
+    	<i class="layui-icon" style="color: #fff">&#xe602;</i>
+    </button>
+</div>
+
+</body>
+</html>

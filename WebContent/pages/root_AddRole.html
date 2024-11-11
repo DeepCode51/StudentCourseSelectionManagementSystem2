@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Table</title>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="LayerCss/global.css" media="all">
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="LayerCss/table.css" />
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+		<script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+		<script type="text/javascript">
+	        $(document).ready(function () {
+	            $("#add").click(function () {
+	            	var fn = new Array(6);
+	            	for(var i=0;i<6;i++){
+	            		if($("#function tr td input").get(i).checked){	            			
+	            			fn[i]="true";
+	            		}else{
+	            			fn[i]="false";
+	            		}
+	            	}
+	            	var rolename=$("#rolename").val();
+	            	var roleinfo=$("#roleinfo").val();
+	            	$.ajax({
+	            		url:"../AddRole.do",
+	            		type:"post",
+	            		dataType:"json",
+	            		data:"rolename="+rolename+"&roleinfo="+roleinfo+
+	            			"&fn1="+fn[0]+"&fn2="+fn[1]+"&fn3="+fn[2]+
+	            			"&fn4="+fn[3]+"&fn5="+fn[4]+"&fn6="+fn[5],
+	            		success:function(data){
+	            			var i=0;
+	            			if(data=="true"){	            				
+	            				alert('角色添加成功');
+	            				window.location.href="root_roleList.html";
+	            			}
+	            		}
+	            	});
+	            });
+	            $("#back").click(function(){
+	            	window.location.href="root_roleList.html";
+	            });
+	        });
+		</script>
+	</head>
+
+	<body>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+				<legend>添加角色</legend>
+		</fieldset>	
+		
+		<div class="admin-main">
+
+			<blockquote class="layui-elem-quote" style="border: 0px">
+				<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-small" id="back">
+					<i class="layui-icon">&#xe603;</i> 返回
+				</a>
+				<a href="javascript:;" class="layui-btn layui-btn-small" id="add">
+					<i class="layui-icon">&#xe608;</i> 提交角色
+				</a>
+				
+
+				
+				<input type="text" id="rolename" style="width: 30%;margin: 20px 0px 0px;" placeholder="角色名称" autocomplete="off" class="layui-input">
+				<input type="text" id="roleinfo" style="width: 40%;margin: 20px 0px 0px;" placeholder="角色描述" autocomplete="off" class="layui-input">
+			</blockquote>
+			
+			<fieldset class="layui-elem-field" style="width: 90%">
+				<legend>功能列表&nbsp;&nbsp;&nbsp;(<span style="font-size: 15px;">请选择此角色所拥有的权限</span>)</legend>
+				<div class="layui-field-box">
+					<table class="site-table table-hover">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="selected-all"></th>
+								<th>序号</th>
+								<th>功能分类</th>
+								<th>功能名称</th>
+								<th>功能描述</th>
+							</tr>
+						</thead>
+						
+						<tbody id="function">
+							<tr>
+								<td><input type="checkbox" value="1"></td>
+								<td>1</td>
+								<td>教师</td>
+								<td>添加课程</td>
+								<td>教师添加自己的课程</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" value="2"></td>
+								<td>2</td>
+								<td>教师</td>
+								<td>查看课程</td>
+								<td>教师查看自己的课程</td>
+							</tr>
+							<tr>
+								<td><input type="checkbox" value="3"></td>
+								<td>3</td>
+								<td>教师</td>
+								<td>上传成绩</td>
+								<td>课程上完后将成绩上传到数据库</td>
+							</tr>
+							
+							<tr>
+								<td><input type="checkbox" value="4"></td>
+								<td>4</td>
+								<td>管理员</td>
+								<td>审核账户</td>
+								<td>审核注册的账户</td>
+							</tr>
+							
+							<tr>
+								<td><input type="checkbox" value="5"></td>
+								<td>5</td>
+								<td>管理员</td>
+								<td>审核课程</td>
+								<td>审核教师申请的课程</td>
+							</tr>
+
+							<tr>
+								<td><input type="checkbox" value="6"></td>
+								<td>6</td>
+								<td>管理员</td>
+								<td>权限管理</td>
+								<td>管理教师用户的权限</td>
+							</tr>
+					
+						</tbody>
+					</table>
+
+				</div>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="plugins/layui/layui.js"></script>
+		<script>
+			layui.config({
+				base: 'plugins/layui/modules/'
+			});
+
+			layui.use(['icheck', 'laypage','layer'], function() {
+				var $ = layui.jquery,
+					laypage = layui.laypage,
+					layer = parent.layer === undefined ? layui.layer : parent.layer;
+				$('input').iCheck({
+					checkboxClass: 'icheckbox_flat-green'
+				});
+
+
+
+				$('#add').on('click', function() {
+					$.get('temp/edit-form.html', null, function(form) {
+						layer.open({
+							type: 1,
+							title: '添加表单',
+							content: form,
+							btn: ['保存', '取消'],
+							area: ['600px', '400px'],
+							maxmin: true,
+							yes: function(index) {
+								console.log(index);
+							},
+							full: function(elem) {
+								var win = window.top === window.self ? window : parent.window;
+								$(win).on('resize', function() {
+									var $this = $(this);
+									elem.width($this.width()).height($this.height()).css({
+										top: 0,
+										left: 0
+									});
+									elem.children('div.layui-layer-content').height($this.height() - 95);
+								});
+							}
+						});
+					});
+				});
+
+				$('#import').on('click', function() {
+					var that = this;
+					var index = layer.tips('只想提示地精准些', that,{tips: [1, 'white']});
+					$('#layui-layer'+index).children('div.layui-layer-content').css('color','#000000');
+				});
+
+				$('.site-table tbody tr').on('click', function(event) {
+					var $this = $(this);
+					var $input = $this.children('td').eq(0).find('input');
+					$input.on('ifChecked', function(e) {
+						$this.css('background-color', '#EEEEEE');
+					});
+					$input.on('ifUnchecked', function(e) {
+						$this.removeAttr('style');
+					});
+					$input.iCheck('toggle');
+				}).find('input').each(function() {
+					var $this = $(this);
+					$this.on('ifChecked', function(e) {
+						$this.parents('tr').css('background-color', '#EEEEEE');
+					});
+					$this.on('ifUnchecked', function(e) {
+						$this.parents('tr').removeAttr('style');
+					});
+				});
+				$('#selected-all').on('ifChanged', function(event) {
+					var $input = $('.site-table tbody tr td').find('input');
+					$input.iCheck(event.currentTarget.checked ? 'check' : 'uncheck');
+				});
+			});
+		</script>
+	</body>
+
+</html>

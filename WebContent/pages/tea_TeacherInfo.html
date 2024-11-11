@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>教师审核-教师档案</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.operationGather > button.modify").click(function () {
+                location.href = "tea_TeacherInfoModify.html";
+            });
+            $("div.operationGather > button.modifyPassword").click(function () {
+                location.href = "tea_passwordModify.html";
+            });
+        	$.ajax({
+        		url:"../queryTeachInfo.do",
+        		type:"post",
+        		dataType:"json",
+        		success:function(data){
+        				$("#username").html(data.username);
+        				$("#id").html(data.id);
+        				$("#name").html(data.teachinfo.name);
+        				$("#sex").html(data.teachinfo.sex);
+        				$("#idCard").html(data.teachinfo.idcard);
+        				$("#phone").html(data.teachinfo.phonenumber);
+        				$("#province").html(data.teachinfo.provinces);
+        				$("#eduction").html(data.teachinfo.eduction);
+        				$("#school").html(data.teachinfo.school);
+        				$("#major").html(data.teachinfo.major);
+        		}
+        	});
+        });
+
+    </script>
+</head>
+<body>
+<h1 class="finishTitle"><span id="tname"></span>个人信息</h1>
+<ul class="finishInformation">
+    <li>
+        <ul>
+            <li><span>账号</span><span id="username"></span></li>
+            <li><span>教师编号</span><span id="id"></span></li>
+            <li><span>教师姓名</span><span id="name"></span></li>
+            <li><span>性别</span><span id="sex"></span></li>
+            <li><span>身份证号</span><span id="idCard"></span></li>
+        </ul>
+    </li>
+    <li>
+        <ul>
+            <li><span>手机号码</span><span id="phone"></span></li>
+            <li><span>籍贯</span><span id="province"></span></li>
+            <li><span>学历</span><span id="eduction"></span></li>
+            <li><span>学校</span><span id="school"></span></li>
+            <li><span>专业</span><span id="major"></span></li>
+
+        </ul>
+    </li>
+</ul>
+
+<div class="operationGather">
+	<button class="modify">编&nbsp;辑&nbsp;信&nbsp;息</button>
+	<button class="modifyPassword">修&nbsp;改&nbsp;密&nbsp;码</button>
+</div>
+</body>
+</html>

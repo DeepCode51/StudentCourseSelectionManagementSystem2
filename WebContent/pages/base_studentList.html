@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学生选课</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.tableList > table tr").dblclick(function () {
+                if($(this).attr("dataId") != undefined){
+                    location.href = "base_studentAuditDetails.html?dataId=" + $(this).attr("dataId");
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<header>
+    <div><a href="">课程列表</a></div>
+</header>
+<div class="tableDetails tableInput">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th>姓名</th><td><input type="text"></td>
+            <th>性别</th><td><div style="width: 150px; display: inline-block; vertical-align:top;">
+            <select name="province" class="ui-select">
+                <option value="">请选择</option>
+                <option value="男">男</option>
+                <option value="女">女</option>
+            </select>
+        </div></td>
+            <th>账号</th><td><input type="text"></td>
+            <th>帐号状态</th><td><div style="width: 150px; display: inline-block; vertical-align:top;">
+            <select name="province" class="ui-select">
+                <option value="">请选择</option>
+                <option value="正常">正常</option>
+                <option value="已冻结">已冻结</option>
+            </select>
+        </div></td>
+        </tr>
+        <tr>
+            <th>手机号</th><td><input type="text"></td>
+            <th>QQ号</th><td><input type="text"></td>
+            <th>学生状态</th><td><div style="width: 150px; display: inline-block; vertical-align:top;">
+            <select name="province" class="ui-select">
+                <option value="">全部</option>
+                <option value="新入学">新入学</option>
+                <option value="正常上课">正常上课</option>
+                <option value="休学中">休学中</option>
+                <option value="已毕业">已毕业</option>
+            </select>
+        </div></td>
+            <th></th>
+            <td><button>搜索</button></td>
+        </tr>
+    </table>
+</div>
+<div class="buttonGather"><button>导出课程列表</button></div>
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th></th>
+            <th>学号</th>
+            <th>帐号</th>
+            <th>身份证号</th>
+            <th width="70">姓名</th>
+            <th width="60">性别</th>
+            <th width="90">手机号</th>
+            <th width="90">QQ号</th>
+            <th width="70">学生状态</th>
+            <th width="70">账号状态</th>
+            <th></th>
+        </tr>
+        <tr dataId="ST006001">
+            <td>1</td>
+            <td>ST006001</td>
+            <td>654328976@qq.com</td>
+            <td>110909876567898765</td>
+            <td>王一一</td>
+            <td>男</td>
+            <td>18999876765</td>
+            <td>736337728211</td>
+            <td><span class="classAgo">新入学</span></td>
+            <td>正常</td>
+            <td><a href="base_studentModify.html"><img src="images/listModify.png"></a></td>
+        </tr>
+        <tr dataId="ST006002">
+            <td>2</td>
+            <td>ST006002</td>
+            <td>654328976@qq.com</td>
+            <td>110909876567898765</td>
+            <td>王二二</td>
+            <td>男</td>
+            <td>18999876765</td>
+            <td>123456789012</td>
+            <td><span class="classNow">正常上课</span></td>
+            <td>正常</td>
+            <td><a href="base_studentModify.html"><img src="images/listModify.png"></a></td>
+        </tr>
+        <tr dataId="ST006003">
+            <td>3</td>
+            <td>ST006003</td>
+            <td>654328976@qq.com</td>
+            <td>110909876567898765</td>
+            <td>王三三</td>
+            <td>男</td>
+            <td>18999876765</td>
+            <td>7363377282</td>
+            <td><span class="classStop">休学中</span></td>
+            <td>正常</td>
+            <td><a href="base_studentModify.html"><img src="images/listModify.png"></a></td>
+        </tr>
+        <tr dataId="ST006004">
+            <td>4</td>
+            <td>ST006004</td>
+            <td>654328976@qq.com</td>
+            <td>110909876567898765</td>
+            <td>王四四</td>
+            <td>女</td>
+            <td>18999876765</td>
+            <td>7363377282</td>
+            <td><span class="classEnd">已毕业</span></td>
+            <td>已冻结</td>
+            <td><a href="base_studentModify.html"><img src="images/listModify.png"></a></td>
+        </tr>
+    </table>
+</div>
+<div class="tablePage">
+    <div>共<span>34</span>条记录，每页<span>10</span>条，共<span>4</span>页</div>
+    <a href="" class="pageTop"></a>
+    <a href="" class="pageUp"></a>
+    <em><input type="text" name="tablePage"></em>
+    <a href="" class="pageDown"></a>
+    <a href="" class="pageBottom"></a>
+</div>
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<style>
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        border-radius: 0;
+        margin: 0;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        /* 2nd scrollbar dragger style... */
+        background-color: #355372;
+        height: 10px;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        height: 8px;
+        border: 1px solid #355372;
+        background-color: #FFFFFF;
+    }
+</style>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.tableList").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: true
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->
+<!--select选框开始-->
+<link type="text/css" rel="stylesheet" href="css/drop-down.css">
+<script type="text/javascript" src="js/select-widget-min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".ui-select").selectWidget({
+            change: function (changes) {
+                return changes;
+            },
+            effect: "slide",
+            keyControl: true,
+            speed: 200,
+            scrollHeight: 250
+        });
+    });
+</script>
+<!--select选框结束-->

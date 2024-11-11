@@ -1,0 +1,162 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+}
+html,body{
+    width: 100%;
+    height: 100%;
+    background: #FFFFFF;
+}
+header{
+    width: 960px;
+    height: 88px;
+    margin: 0 auto;
+}
+footer{
+    width: 100%;
+    height: 40px;
+}
+article{
+    width: 100%;
+    height: 500px;
+    background: #499FCC;
+}
+div.article{
+    width: 960px;
+    min-height: 476px;
+    margin: 0 auto;
+}
+div.article > div{
+    float: left;
+}
+div.article > div.loginLeft{
+    width: 523px;
+    height: 476px;
+}
+div.article > div.loginRight{
+    width: 435px;
+    height: 476px;
+}
+div.loginRight > div.loginBorder{
+    width: 350px;
+    margin: 50px auto;
+    border-radius: 10px;
+    background: #FFFFFF;
+    padding: 20px 0px;
+}
+div.loginBorder > h1,div.loginBorder > label{
+    width: 310px;
+
+    margin: 0 auto;
+}
+div.loginBorder > h1{margin-bottom: 10px; }
+div.loginBorder > label{
+    height: 45px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    display: block;
+    margin-bottom: 20px;
+}
+div.loginBorder > label.onFocus{
+    border: 1px solid #27c2dd;
+    -moz-box-shadow:0px 0px 5px #27c2dd inset;               /* For Firefox3.6+ */
+    -webkit-box-shadow:0px 0px 5px #27c2dd inset;            /* For Chrome5+, Safari5+ */
+    box-shadow:0px 0px 5px #27c2dd inset;                    /* For Latest Opera */
+}
+div.loginBorder > label > b{
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    vertical-align: middle;
+}
+div.loginBorder > label.loginName > b{
+    background: url("../images/loginName.png") no-repeat center #EEEEEE;
+}
+div.loginBorder > label.Password > b{
+    background: url("../images/Password.png") no-repeat center #EEEEEE;
+}
+div.loginBorder > label > input{
+    width: 265px;
+    height: 40px;
+    border: 0;
+    vertical-align: middle;
+    font-size: 16px;
+    text-indent: 20px;
+}
+div.loginBorder > label > input:focus{
+    outline: none;
+}
+div.loginBorder > div.loginButton{text-align: center;}
+div.loginBorder > div.loginButton > button{
+    width: 310px;
+    height: 45px;
+    border-radius: 5px;
+    background: #499FCC;
+    cursor: pointer;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+div.other{
+    width: 310px;
+    height: 60px;
+    margin: 0 auto;
+}
+div.other > div{
+    line-height: 60px;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+div.other > div > a{color: #999999; font-size: 15px;}
+div.other > div > a:visited{color: #999999;}
+div.other > div > a:hover{color: #c29c20;}
+
+
+div.loginBorder > label > span.prompt{
+    display: inline-block;
+    vertical-align: top;
+    min-width: 140px;
+    min-height: 45px;
+    line-height: 45px;
+    margin-left: 10px;
+    font-size: 12px;
+    font-family: "宋体";
+    text-indent: 30px;
+    position: absolute;
+    padding-right: 10px;
+    border-radius: 5px;
+}
+div.loginBorder > label > span.prompt > em {
+    display: block;
+    border-width: 5px;
+    position: absolute;
+    bottom: 50%;
+    left: -10px;
+    font-size: 0;
+    line-height: 0;
+}
+div.loginBorder > label > span.prompt > span {
+    display: block;
+    border-width: 5px;
+    position: absolute;
+    bottom: 50%;
+    left: -9px;
+    font-size: 0;
+    line-height: 0;
+
+}
+div.loginBorder > label > span.error{
+    color: #FF4A3E;
+    border: 1px solid #FF4A3E;
+    background: url("../images/promptError.png") no-repeat 10px center #FFF5F5;
+}
+div.loginBorder > label > span.error > em {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #FF4A3E transparent transparent;
+}
+div.loginBorder > label > span.error > span {
+    border-style: dashed solid dashed dashed;
+    border-color: transparent #FFF5F5 transparent transparent;
+}

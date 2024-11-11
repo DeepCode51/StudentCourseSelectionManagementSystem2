@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.CourseMapperEXT">
+	
+	<insert id="addCourse" parameterType="org.lhp.bean.Course"
+			useGeneratedKeys="true"
+			keyProperty="id">
+		INSERT INTO `course` 
+		(`course_name`, `course_type`, `course_info`, `teachid`, `course_flag`, `course_stu_size`,score_flag) 
+		VALUES 
+		(#{course_name},#{course_type},#{course_info},#{teachid}, #{course_flag}, #{course_stu_size},0)
+	
+	</insert>
+	
+	<select id="queryTeaCourse" parameterType="int" resultType="org.lhp.bean.Course">
+		SELECT * FROM `course` WHERE course_flag=1 AND `teachid`=#{tid}
+	</select>
+	
+	<select id="queryTeaCourseUpScore" parameterType="int" resultType="org.lhp.bean.Course">
+		SELECT * FROM `course` WHERE course_flag=1 AND score_flag=0 AND `teachid`=#{tid}
+	</select>
+	
+	<select id="queryTeaCourseOne" parameterType="int" resultType="org.lhp.bean.Course">
+		SELECT * FROM `course` WHERE (`id`=#{cid})
+	</select>
+	<select id="queryTeaname" parameterType="int" resultType="String">
+		SELECT name FROM tea_user tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE tu.id=#{id}
+	</select>
+	
+
+	<resultMap type="org.lhp.bean.Teacher" id="teacher">
+		<result property="name" column="name"/>
+	</resultMap>
+	<resultMap type="org.lhp.bean.CourseRt" id="course">
+		<id property="id" column="id"/>
+		<result property="course_name" column="course_name"/>
+		<result property="course_type" column="course_type"/>
+		<result property="course_info" column="course_info"/>
+		<association property="teachuid" resultMap="teacher"></association>
+	</resultMap>
+	
+	<resultMap type="org.lhp.bean.Student_Course" id="stu_course">
+		<result property="Score" column="score"/>
+		<association property="courseRt" resultMap="course"></association>
+	</resultMap>
+	
+	<select id="stu_queryAllCourse" parameterType="int" resultMap="course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name FROM `course` c
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE c.id  NOT IN (
+			SELECT courseid FROM `stu_course` WHERE stuid=#{stuid}
+		)
+	</select>
+	
+	<select id="stu_onTermCourse" parameterType="Map" resultMap="course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name FROM `course` c
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE (c.id  NOT IN (
+			SELECT courseid FROM `stu_course` WHERE stuid=#{stuid}
+		))
+		<if test="tname!=''">
+			AND ti.`name`=#{tname}
+		</if>
+		<if test="ctype!=''">
+			AND c.course_type=#{ctype}
+		</if>
+		<if test="cname!=''">
+			AND c.course_name=#{cname}
+		</if>
+	</select>
+	
+	<insert id="stu_addCourse" parameterType="org.lhp.bean.Student_Course">
+		INSERT INTO `stu_course` (`stuid`, `courseid`) VALUES (#{userRt.id},#{courseRt.id})
+	</insert>
+	
+	<select id="queryStuAndCourse" parameterType="org.lhp.bean.Student_Course" resultType="int">
+			SELECT COUNT(1) FROM `stu_course` where stuid=#{userRt.id} AND courseid=#{courseRt.id}
+	</select>
+
+	<select id="queryStuMyCourse" parameterType="int" resultMap="course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name FROM `course` c
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE (c.id IN(
+			SELECT courseid FROM stu_course WHERE stuid=#{stuid}
+		))
+		AND (c.id NOT IN(
+			SELECT courseid FROM stu_course WHERE score>0
+		))
+	</select>
+	
+	<select id="queryStuMyCourseAndScore" parameterType="int" resultMap="stu_course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name,score FROM stu_course s
+		INNER JOIN course c ON s.courseid=c.id
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE s.stuid=#{sid} AND score>0
+	</select>
+	
+	<update id="ModifyScoreFlag" parameterType="int">
+		UPDATE `course` SET `score_flag`='1' WHERE (`id`=#{cid})
+	</update>
+	
+	<delete id="deleteStudCourse" parameterType="map">
+		DELETE FROM `stu_course` WHERE (`stuid`=#{stuid}) AND (`courseid`=#{cid})
+	</delete>
+</mapper>

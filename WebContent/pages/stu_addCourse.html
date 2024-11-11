@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>我的课程</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="LayerCss/global.css" media="all">
+		<link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="LayerCss/table.css" />
+  
+
+    <style type="text/css">
+    	.ui-select{
+    		height: 30px;
+    		width: 100px;
+    		border: 1px #3e5b79 solid;
+    		font-size: 16px;
+    		color: #3e5b79;
+    		cursor: pointer;
+    	}
+    	option{
+    		height: 30px;
+    		color: #3e5b79;
+    		cursor: pointer;
+    		font-size: 16px;
+    	}
+    	.syyk{
+    		font-weight: bold;
+    		color: #333;
+    	}
+    	.button1{
+    		background: #333;
+    		color: #fff;
+    		cursor: pointer;
+    		padding: 10px 20px 10px 20px;
+    	}
+    	.button1:HOVER {
+			background: #555;
+			color: #fff;
+		}
+    	.button2{
+    		background: #333;
+    		color: #fff;
+    		cursor: pointer;
+    	}
+    	.button2:HOVER {
+			background: #555;
+			color: #fff;
+		}
+		body {
+			padding: 30px;
+		}
+    </style>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+
+    <script type="text/javascript">
+		var info;
+ 		var CurPages=1;
+		var PagesLength = 4;//每一页的数据量
+		var PagesSum ;//总页数
+        $(document).ready(function () {
+        	$.ajax({
+				url:"../queryAllCourse.do",
+				type:"post",
+				dataType:"json",
+    			success:function(data){
+    				info=data;
+    				PagesSum = Math.ceil((info.length)/PagesLength);//总页数
+    				CurPages = 1;
+        			pages(data,CurPages);
+    			}
+        	});
+        });
+        function addCorse(obj){
+        	var i = $(obj).parent("td").siblings("td[class='id']").html();
+        	var cname = $(obj).parent("td").siblings("td[class='name']").html();        	
+        	$.ajax({
+				url:"../stu_addCourse.do",
+				type:"post",
+				dataType:"json",
+				data:"cid="+i+"&cname="+cname,
+    			success:function(data){
+    				if(data=="true"){    					
+		        		layer.alert("恭喜你，"+cname+"课程报名成功",function(){
+		        			location.href="stu_addCourse.html";
+		        		});
+    				}
+    				if(data=="false"){    					
+		        		layer.alert("您好，您已经报了此门课程，报名失败");			
+    				}
+    			}
+        	});
+        }
+        function query(){
+        	var cname = $("#queryname").val();
+        	var tname = $("#queryteaname").val();
+        	var ctype = $("#querytype").val();
+        	if(ctype=="课程分类"){
+        		ctype="";
+        	}
+        	$.ajax({
+				url:"../onTermCourse.do",
+				type:"post",
+				dataType:"json",
+				data:"cname="+cname+"&tname="+tname+"&ctype="+ctype,
+    			success:function(data){
+    				info=data;
+    				PagesSum = Math.ceil((info.length)/PagesLength);//总页数
+    				CurPages = 1;
+        			pages(data,CurPages);
+    			}
+			});
+        }
+        /*========================分页=========================*/
+     	function pageUp(){
+     		if(CurPages>1){
+	        	CurPages=CurPages-1;
+	        	pages(info,CurPages);
+     		}else{
+     			
+     		}
+     	}
+     	function pageDown(){
+     		if(CurPages<PagesSum){
+        	CurPages=CurPages+1;
+        	pages(info,CurPages);
+     		}else{
+     		
+     		}
+     	}
+     	/*========================分页=========================*/
+	
+     	function pages(data,cur){
+     		var s = ((cur-1)*PagesLength);//每一页第一项数据
+     		var x = (PagesLength*cur)-1;//每一页最后一项数据
+			$("#cur").html(cur);
+			$("#sum").html(PagesSum);
+			$(".courseinfo").children("td[class='num']").html("");
+			$(".courseinfo").children("td[class='id']").html("");
+			$(".courseinfo").children("td[class='name']").html("");
+			$(".courseinfo").children("td[class='type']").html("");
+			$(".courseinfo").children("td[class='info']").html("");
+			$(".courseinfo").children("td[class='teaname']").html("");
+			$(".courseinfo").children("td[class='addc']").children("button").hide();
+			var pl=0;
+			for(var i=s;i<=x;i++){
+				if(i<data.length){
+					$(".courseinfo:eq("+pl+")").children("td[class='num']").html(i);
+					$(".courseinfo:eq("+pl+")").children("td[class='id']").html(data[i].id);
+					$(".courseinfo:eq("+pl+")").children("td[class='name']").html(data[i].course_name);
+					$(".courseinfo:eq("+pl+")").children("td[class='type']").html(data[i].course_type);
+					$(".courseinfo:eq("+pl+")").children("td[class='info']").html(data[i].course_info);
+					$(".courseinfo:eq("+pl+")").children("td[class='teaname']").html(data[i].teachuid.name);
+					$(".courseinfo:eq("+pl+")").children("td[class='addc']").children("button").show();
+				}
+				pl=pl+1;
+			}
+     	}
+     /*======================================================*/
+    </script>
+</head>
+<body>
+<!-- <header>
+    <div><a href="">选择课程</a> (<span class="syyk">剩余选课数量:</span><span class="syyk">0</span>)</div>
+</header> -->
+<div class="tableDetails">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th>课程名称</th><td><input type="text" id="queryname"></td>
+            <th>教师</th><td><input type="text" id="queryteaname"></td>
+            <th>课程分类</th>
+            <td>
+                <div style="width: 150px; display: inline-block; vertical-align:top;">
+                    <select id="querytype" class="ui-select">
+                        <option value="课程分类" selected="selected">课程分类</option>
+                        <option value="体育类">体育类</option>
+                        <option value="艺术类">艺术类</option>
+                        <option value="文化类">文化类</option>
+                        <option value="科技类">科技类</option>
+                    </select>
+                </div>
+            </td>
+
+            <td>
+            	<button class="layui-btn layui-btn-danger layui-btn-radius" onclick="query()">
+					<i class="layui-icon" style="color: #fff">&#xe615;</i>
+				搜索
+				</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0" id="ctable" >
+        <tr>
+            <th></th>
+            <th>课程编号</th>
+            <th>课程名称</th>
+            <th>课程分类</th>
+            <th>课程描述</th>
+            <th>课程教师</th>
+            <th>课程状态</th>
+        </tr>
+        <tr class="courseinfo">
+            <td class="num"></td>
+            <td class="id"></td>
+            <td class="type"></td>            
+            <td class="name"></td>
+            <td class="info"></td>
+            <td class="teaname"></td>
+            <td class="addc">
+	            <button class="layui-btn" onclick="addCorse(this)">
+				<i class="layui-icon" style="color: #fff"></i>
+				报名
+				</button>
+            </td>
+        </tr>
+        <tr class="courseinfo">
+            <td class="num"></td>
+            <td class="id"></td>
+            <td class="type"></td>            
+            <td class="name"></td>
+            <td class="info"></td>
+            <td class="teaname"></td>
+            <td class="addc">
+	            <button class="layui-btn" onclick="addCorse(this)">
+				<i class="layui-icon" style="color: #fff"></i>
+				报名
+				</button>
+            </td>
+        </tr>
+        <tr class="courseinfo">
+            <td class="num"></td>
+            <td class="id"></td>
+            <td class="type"></td>            
+            <td class="name"></td>
+            <td class="info"></td>
+            <td class="teaname"></td>
+            <td class="addc">
+	            <button class="layui-btn" onclick="addCorse(this)">
+				<i class="layui-icon" style="color: #fff"></i>
+				报名
+				</button>
+            </td>
+        </tr>
+        <tr class="courseinfo">
+            <td class="num"></td>
+            <td class="id"></td>
+            <td class="type"></td>            
+            <td class="name"></td>
+            <td class="info"></td>
+            <td class="teaname"></td>
+            <td class="addc">
+	            <button class="layui-btn" onclick="addCorse(this)">
+				<i class="layui-icon" style="color: #fff"></i>
+				报名
+				</button>
+            </td>
+        </tr>
+
+    </table>
+</div>
+
+<div style="text-align: center; margin: 20px;"> 
+    <button class="layui-btn" id="pageUp"  onclick="pageUp()">
+    	<i class="layui-icon" style="color: #fff">&#xe603;</i>
+    </button>
+    <span style="color:#3E5B79;font-size: 20px;font-weight: bold;">(
+    	<span id="cur" style="color:#3E5B79;font-size: 20px;font-weight: bold;">4</span>
+    	/<span id="sum" style="color:#3E5B79;font-size: 20px;font-weight: bold;">5</span>
+    )</span>
+    
+    <button class="layui-btn" id="pageDown" onclick="pageDown();">
+    	<i class="layui-icon" style="color: #fff">&#xe602;</i>
+    </button>
+</div>
+
+</body>
+</html>

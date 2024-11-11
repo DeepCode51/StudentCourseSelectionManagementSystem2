@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>404选课系统</title>
+    <link type="text/css" rel="stylesheet" href="css/tch_css.css">
+    <link type="text/css" rel="stylesheet" href="css/tch_teacherInput.css">
+    <link type="text/css" rel="stylesheet" href="css/tch_drop-down.css"> <!--select选框CSS-->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/select-widget-min.js"></script><!--select选框JS-->
+    <script type="text/javascript" src="js/tch_formRequired.js"></script><!--表单验证JS-->
+    <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+        	
+        	
+        	$("#username").blur(function(){
+        		var username = $(this).val();
+         		 $.ajax({
+        			url:"../teausernameCheck.do",
+        			type:"post",
+        			dataType:"json",
+        			data:"username="+username,
+        			success:function(data){
+        				if(data=="true"){
+        					layer.msg('账号已存在，请重新输入', {time: 2000,icon: 5});
+        				}
+        			}
+        		});
+        	});
+			
+
+         	$('#submit').click(function () {
+                var username = $("#username").val();
+                var password = $("#password").val();
+        		 $.ajax({
+	       			url:"../teausernameCheck.do",
+	       			type:"post",
+	       			dataType:"json",
+	       			data:"username="+username+"&password="+password,
+	       			success:function(data){
+	       				if(data=="true"){
+	       					layer.msg('账号已存在，请重新输入', {time: 2000,icon: 5});
+	       				}else{
+			                $("form :input").trigger('blur');
+			                var numError = $('form .error,form .warning').length;
+	                    	if (numError<1) {
+	                    		$.ajax({
+	                    			url:"../teacherRegisterUser.do",
+	            	       			type:"post",
+	            	       			dataType:"json",
+	            	       			data:"username="+username+"&password="+password,
+	            	       			success:function(){
+	            	       				window.location.href="tch_teacherRegisterInfo.html";
+	            	       			}
+	                    		});
+	                        }else{
+	                        	layer.alert('信息填写错误', {icon: 2});
+	                        }
+	       				}
+	       			  }
+       			  });
+            });
+            
+        });
+    </script>
+</head>
+
+
+
+<body>
+<header>
+	<img id="login" src="images/logo.png">
+</header>
+<div id="studentInput">
+    <section>
+        <form action="../teacherRegister.do" method="post" name="studentForm">
+            <table border="0" cellpadding="0" cellspacing="0">
+				<tr><td></td></tr>
+				<tr><td></td></tr>		
+				<tr><td></td></tr>	
+	
+				
+				<tr >
+					<td></td>
+					<td style="color:#fff;left:60px;">账号信息</td>
+				</tr>
+				
+				<tr>
+                    <td>登录账号</td>
+                    <td><input type="text" name="username" id="username" class="vCode" placeholder="请输入登录账号" promptNull="登录账号不能为空"
+                              promptError="请输入字母与数字组合"></td>
+                </tr>
+				
+				<tr>
+                    <td>密码</td>
+                    <td><input type="password" name="password" id="password" class="password" placeholder="请输入密码" promptNull="密码不能为空"
+                               promptError="请输入正确格式">
+                    </td>
+                </tr>
+				
+                <tr>
+                    <td>确认密码</td>
+                    <td><input type="password" name="passwordConfirm" class="passwordConfirm" placeholder="请输入确认密码" promptNull="请输入确认密码"
+                               promptError="两次密码输入不一致"></td>
+                </tr>
+
+				
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" id="submit">&nbsp;下&nbsp;一&nbsp;步&nbsp;&nbsp;&nbsp;</button>
+                    </td>
+                </tr>
+                
+                <tr><td></td></tr>
+				<tr><td></td></tr>		
+				<tr><td></td></tr>	
+            </table>
+        </form>
+    </section>
+</div>
+<footer></footer>
+<br>
+<br>
+<br>
+<br>
+
+</body>
+</html>

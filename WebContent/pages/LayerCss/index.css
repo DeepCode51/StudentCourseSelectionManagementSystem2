@@ -1,0 +1,172 @@
+header {
+    width: 100%;
+    height: 75px;
+    background: #333;
+    color: #fff;
+}
+#name{
+	color: #fff;
+}
+header > div.logo, header > div.out {
+    height: 100%;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+}
+
+header > div.logo {
+    float: left;
+}
+
+header > div.out {
+    float: right;
+}
+
+header > div.logo > a {
+    margin-left: 22px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-box;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-box-align: center;
+}
+
+header > div.out > a {
+    color: #fff;
+    line-height: 105px;
+    margin-right: 65px;
+}
+
+header > div.out > a:visited {
+    color: #fff;
+}
+
+header > div.out > a:hover {
+    color: #fff;
+}
+section > div.left {
+    float: left;
+    width: 170px;
+    background: #333;
+}
+
+section > div.left > div.shadow {
+    width: 100%;
+    height: 2px;
+    margin-bottom: 5px;
+    background: #fff;
+    -moz-box-shadow: 0px 3px 5px #fff; /* 老的 Firefox */
+    box-shadow: 0px 3px 5px #fff;
+}
+
+section > div.left div.shadowDouble {
+    width: 100%;
+    height: 2px;
+    margin-bottom: 5px;
+    background: #fff;
+    -moz-box-shadow: 0px 0px 5px #fff; /* 老的 Firefox */
+    box-shadow: 0px 0px 5px #fff;
+}
+
+section > div.left > div.portrait {
+    margin-top: 20px;
+    width: 100%;
+    height: 135px;
+    text-align: center;
+    line-height: 30px;
+}
+
+section > div.left > div.portrait img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+section > div.left > div.portrait > a {
+    color: #FFF;
+}
+
+section > div.left > div.portrait > a:visited {
+    color: #FFF;
+}
+
+section > div.left > div.portrait > a:hover {
+    color: #FFF;
+}
+
+section > div.right {
+    float: right;
+    background: #EDF2F6;
+}
+section > div.right > iframe{
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*border: 0px;*/
+}
+
+nav div.classA,nav ul.classB,nav ul.classC {
+    width: 200px;
+}
+nav ul.classB,nav ul.classC{
+    display:none;
+}
+
+nav div.classA a {
+    display: block;
+    cursor: pointer;
+}
+nav div.classA > a {
+    width: 200px;
+    height: 44px;
+    line-height: 45px;
+    text-indent: 20px;
+    color: #8FB4E1;
+}
+
+nav ul.classB > li > a {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 40px;
+    color: #A3AEC2;
+    background: url("../images/off.png") no-repeat 180px center, url("../images/navIcon.png") no-repeat 20px center;
+
+}
+nav ul.classB > li > a[href]{
+    background: url("../images/navIcon.png") no-repeat 20px center;
+}
+nav ul.classB > li > a[href].selected {
+    color: #FFFFFF;
+    background: url("../images/navIconC.png") no-repeat 20px center,url("../images/navSelected.jpg") repeat-y #262E3B;
+}
+nav ul.classB > li > a.on {
+    background: url("../images/on.png") no-repeat 180px center, url("../images/navIconC.png") no-repeat 20px center;
+    color: #FFFFFF;
+}
+
+nav ul.classC > li > a {
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 60px;
+    color: #A3AEC2;
+    background: url("../images/navIcon.png") no-repeat 40px center;
+}
+nav ul.classC > li > a.selected {
+    color: #FFFFFF;
+    background: url("../images/navIconC.png") no-repeat 40px center,url("../images/navSelected.jpg") repeat-y #262E3B;
+}
+.classA a{
+	-moz-user-select:none;
+}
+.classA a:hover{
+	color:  #F1F1F1;
+	font-size:17px;
+}
+.user{
+	color: #fff;
+	margin-left:15px;
+}
+
+

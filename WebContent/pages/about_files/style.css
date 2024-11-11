@@ -1,0 +1,322 @@
+﻿@charset "utf-8";
+html { cursor:default; }
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,legend,input,textarea,p,blockquote,th,td,a,img,span{ margin:0; padding:0; } 
+body { font-size:12px; font-family:"Microsoft YaHei","微软雅黑","Arial, Geneva, sans-serif";color: #344659;background: #f1f1f1;}
+address,caption,cite,code,dfn,em,th,var,i { font-style:normal; font-weight:normal; } 
+h1,h2,h3,h4,h5,h6 { font-size:100%; font-weight:normal; } 
+input,textarea,select { font-family:inherit; font-size:inherit; *font-size: 100%; font-weight:inherit; outline:none; }
+table { border-collapse:collapse; border-spacing:0; } 
+fieldset,img,abbr,acronym { border:0; } 
+a{text-decoration: none;cursor: pointer;}
+a:focus,a:active,button::-moz-focus-inner,input[type="reset"]::-moz-focus-inner,input[type="button"]::-moz-focus-inner,input[type="submit"]::-moz-focus-inner,select::-moz-focus-inner,input[type="file"] > input[type="button"]::-moz-focus-inner {
+	border: 0;
+	outline: 0;
+}
+input[type='button'],input[type='submit']{
+	border:0;
+}
+ol,ul ,li{ list-style-type:none;list-style: none; } 
+caption,th { text-align:left; } 
+img{vertical-align:middle;border:0;}
+q:before,q:after { content:''; } 
+.clearfix:before,.clearfix:after{ 
+    content:""; 
+    display:table; 
+} 
+.clearfix:after{clear:both;} 
+.clearfix{ 
+    *zoom:1;/*IE/7/6*/
+}
+.fl{float:left;}
+.fr{float:right;}
+body{
+	line-height: 1;
+	background: #fff;
+	overflow-x: hidden;
+}
+.ml10{
+	margin-left: 10px;
+}
+
+
+/*头*/
+.header{
+	height: 70px;
+	background-color:transparent;
+}
+.header.header-fixed{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+}
+.header-bg{
+	background: rgba(0,162,230,0.8);
+}
+.header .logo{	
+	display: block;
+	height: 70px;
+	width: 120px;
+	padding: 18px 0 0 30px;
+	box-sizing: border-box;
+}
+
+.header .logo a{	
+	width: 90px;
+	height: 35px;
+	display: block;
+}
+.header .logo img{	
+	width: 100%;
+	height: 100%;
+}
+.header .nav{
+	font-size: 0;
+	padding-top: 28px;
+}
+.header .nav>ul{
+	margin-right: 20px;
+}
+.header .nav>ul>li{
+	display: block;
+	float: left;
+	padding-right: 18px;
+	padding: 0 18PX;
+	border-right: solid 1px #8dbdd2;
+	position: relative;
+}
+.header .nav>ul>li a{
+	font-size: 14px;
+	line-height: 14px;
+	color: #d4effa;
+	transition: all 0.2s ease-in;
+	-webkit-transition: all 0.2s ease-in;
+}
+.header .nav>ul>li a:hover{
+	color: #f7fdff;
+	font-weight: bold;
+}
+.menu{
+	background: transparent;
+	box-sizing: border-box;
+	position: absolute;
+	width: 240px;
+	top: 14px;
+	left: 0;
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+	-webkit-transition: all 0.2s ease-in;
+	transition: all 0.2s ease-in;
+}
+.menu .anchors{
+	margin-top: 35px;
+	background: #1782af;
+	padding: 25px 0 10px 22px;
+}
+.menu a{
+	color: #fff;
+	font-size: 14px;
+	margin-bottom: 16px;
+	display: block;
+}
+.menu:hover,
+.header .nav a:hover ~ .menu{
+	height: 245px;
+	opacity: 1;
+}
+/*尾*/
+.footer{
+	width: 100%;
+	background: #000;
+	height: 90px;
+	box-sizing: border-box;
+}
+.footer .wrap{
+	width: 1150px;
+	margin: 0 auto;
+	color: rgba(255,255,255,0.3);
+	font-size: 14px;
+}
+.footer .p1{
+	padding: 30px 0 7px 0;
+}
+.footer .fr{
+	text-align: right;
+	vertical-align: middle;
+	padding-top: 25px;
+}
+.footer .fr img{
+	margin-right:20px;
+}
+
+
+/*关于*/
+
+.wrap1150{
+	width: 1150px;
+	margin: 0 auto;
+}
+.about .top{
+	height: 895px;
+	background: url(../images/about/about-bg.jpg) no-repeat center;
+	background-size: cover;
+	position: relative;
+}
+.about .top .content{
+	position: absolute;
+	top:200px;
+	left: 50%;
+	width: 1000px;
+	height: 460px;
+	color: #fff;
+	background: #00a0e9;
+	box-sizing: border-box;
+	padding: 50px 85px 0 85px;
+}
+.about .top .t{
+	font-size: 44px;
+	padding:20px 0 50px 0;
+}
+.about .top .text{
+	font-size: 16px;
+	line-height: 24px;
+	padding-bottom: 50px;
+}
+.about .top .box{
+	font-size: 0;
+}
+.about .top .item{
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 70px;
+}
+.about .top .p1{
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+.about .top .p2{
+	font-size: 20px;
+}
+
+/*产品*/
+.about .products table{
+	table-layout: fixed;
+}
+.about .products td{
+	width: 33.33333%;
+	box-sizing: border-box;
+	border:solid 1px #e6e6e6;
+	padding: 0 65px;
+	vertical-align: top;
+	padding-bottom: 70px;
+}
+.about .products td.gray{
+	background: #F1F1F1;
+}
+.about .products .t{
+	font-size: 32px;
+	text-align: center;
+	padding-top: 65px;
+}
+.about .products .t a{
+	color: #00afe9;
+	transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-webkit-transition: all 0.2s ease;
+}
+.about .products .t a:hover{
+	color: #00A0E9;
+}
+.about .products .logo{
+	display: block;
+	-moz-user-select:none;
+}
+.about .pdt1 .logo{
+	width: 135px;
+	height: auto;
+	margin: 40px auto 55px auto;
+}
+.about .pdt2 .logo{
+	width: 120px;
+	height: auto;
+	margin: 40px auto 55px auto;
+}
+.about .pdt3 .logo{
+	width: 85px;
+	height: auto;
+	margin: 40px auto 55px auto;
+}
+.about .pdt4 .logo{
+	width: 112px;
+	height: auto;
+	margin: 27px auto 55px auto;
+}
+.about .pdt5 .logo{
+	width: 35px;
+	height: auto;
+	margin: 25px auto 55px auto;
+}
+.about .pdt6 .logo{
+	width: 115px;
+	height: auto;
+	margin: 20px auto 50px auto;
+}
+
+.about .products .text{
+	color: #5c566e;
+	line-height: 24px;
+	font-size: 16px;
+	padding-bottom: 50px;
+	-moz-user-select:none;
+}
+/*联系我们*/
+.about .contact{
+	background: url(../images/about/contact-bg.jpg) no-repeat center;
+	background-size: cover;
+	height: 390px;
+}
+.about .contact .contact-us{
+	width: 490px;
+}
+.about .contact .t{
+	font-size: 26px;
+	color: #333;
+	padding: 110px 0 35px 0;
+}
+.about .contact .info{
+	color: #5c566e;
+	font-size: 16px;
+	padding-bottom: 10px;
+}
+.about .contact .focus-us img{
+	width: 115px;
+	height: 115px;
+}
+/*关于我们*/
+.about .links{
+	height: 250px;
+	box-sizing: border-box;
+	padding-top: 68px;
+}
+.about .links .item ul{
+	font-size: 0;
+	padding-bottom: 35px;
+}
+.about .links .item .one{
+	width: 125px;
+	font-size: 18px;
+	font-weight:bold;
+}
+.about .links .item li{
+	display: inline-block;
+	width: 130px;
+}
+.about .links .item a{
+	font-size: 16px;
+	color: #5c566e;
+}
+.about .links .item a:hover{
+	color: #00a0e9 ;
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学弥途远校本课程选课系统-学生注册</title>
+    <link type="text/css" rel="stylesheet" href="css/tch_css.css">
+    <link type="text/css" rel="stylesheet" href="css/tch_teacherInput.css">
+    <link type="text/css" rel="stylesheet" href="css/tch_drop-down.css"> <!--select选框CSS-->
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/select-widget-min.js"></script><!--select选框JS-->
+    <script type="text/javascript" src="js/tch_formRequired.js"></script><!--表单验证JS-->
+    <script type="text/javascript" src="js/StuProvintes.js"></script><!--表单验证JS-->
+    <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+        	var uphtml = document.referrer;
+        	var tu = uphtml.split("/")
+        	if(tu[tu.length-1]!="stu_studentRegisterUser.html"){
+        		window.location.href="stu_studentRegisterUser.html";
+        	}
+        	
+        	
+         	$('#submit').click(function () {
+                $("form :input").trigger('blur');
+                var numError = $('form .error,form .warning').length;
+                if (numError>0) {
+                	layer.alert('信息填写错误', {icon: 2});
+                    return false;
+                }	
+      
+            });
+        });
+
+    </script>
+</head>
+<body>
+<header>
+	<img id="login" src="images/logo.png">
+</header>
+<div id="studentInput">
+    <section>
+        <form action="../stuRegisterInfo.do" method="post" name="studentForm">
+            <table border="0" cellpadding="0" cellspacing="0">
+				
+				<tr >
+					<td></td>
+					<td style="color:#fff;left:60px;">身份信息</td>
+				</tr>
+				
+                <tr>
+                    <td>姓名</td>
+                    <td><input type="text" name="fullName" class="fullName" placeholder="请输入姓名" promptNull="姓名不能为空"
+                               promptError="请输入中文姓名"></td>
+                </tr>
+				
+				<tr>
+					<td>性别</td>
+					<td>
+						<div style="width: 220px; display: inline-block; vertical-align:top;">
+							<select name="sex" class="ui-select">
+								<option value="男">男</option>
+								<option value="女">女</option>
+							</select>
+						</div>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>班级</td>
+					<td>
+						<div style="width: 110px; display: inline-block; vertical-align:top;">
+							<select name="stuclass1" class="ui-select">
+                                <option value="大一">大一</option>
+                                <option value="大二">大二</option>
+                                <option value="大三">大三</option>
+                                <option value="大三">大四</option>
+                            </select>
+						</div>
+						<div style="width: 110px; display: inline-block; vertical-align:top;">
+							<select name="stuclass2" class="ui-select">
+                                <option value="一班">一班</option>
+                                <option value="二班">二班</option>
+                                <option value="三班">三班</option>
+								<option value="四班">四班</option>
+                                <option value="五班">五班</option>
+                                <option value="六班">六班</option>
+                                <option value="七班">七班</option>
+                                <option value="八班">八班</option>
+                                <option value="九班">九班</option>
+                                <option value="十班">十班</option>
+                            </select>
+						</div>
+				    </td>
+				</tr>
+				
+                <tr>
+                    <td>身份证号</td>
+                    <td><input type="text" name="IDNo" class="IDNo" placeholder="请输入身份证" promptNull="身份证不能为空"
+                               promptError="请输入有效身份证号码"></td>
+                </tr>
+                
+				<tr>
+                    <td>手机号码</td>
+                    <td><input type="text" name="phonenum" class="PhoneNo" placeholder="请输入手机号码" promptNull="手机号码不能为空"
+                               promptError="请输入正确的手机号码">
+                    </td>
+                </tr>
+				
+				
+				
+				<tr>
+					<td>籍贯</td>
+					<td>
+						<div style="width: 110px; display: inline-block; vertical-align:top;">
+							<select name="province" class="ui-select" id="province">
+                                <option value="北京市" class="area1">北京市</option>
+                            </select>
+						</div>
+						<div style="width: 110px; display: inline-block; vertical-align:top;">
+							<select name="city" class="ui-select" id="city">
+                                <option value="北京市" class="area2">北京市</option>
+                            </select>
+						</div>
+				    </td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<div style="width: 220px; display: inline-block; vertical-align:top;">
+							<select name="area" class="ui-select" id="area">
+                                <option value="北京市" class="area3">北京市</option>
+                            </select>
+						</div>
+					</td>
+				</tr>
+				
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" id="submit">注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </section>
+
+</div>
+<footer>@2020，管理员</footer>
+</body>
+</html>

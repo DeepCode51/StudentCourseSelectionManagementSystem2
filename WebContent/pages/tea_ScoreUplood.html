@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>我的班级</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/GetUrlParam.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script><!--表单验证JS-->
+    <script type="text/javascript" src="js/JSON2.js"></script><!--表单验证JS-->
+ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+        	
+        	var cid=getUrlParam("cou");
+        	$.ajax({
+				url:"../queryCourseOne.do",
+				type:"post",
+				dataType:"json",
+				data:"cid="+cid,
+    			success:function(data){
+    				$("#cid").html(data.course.id);
+    				$("#cname").html(data.course.course_name);
+					if(data.course.score_flag==0){    						
+						$("#cflag").html("START");
+					}
+					if(data.course.score_flag==1){    						
+						$("#cflag").html("END");
+					}
+    				$("#ctea").html(data.teaname);
+    				$("#cinfo").html(data.course.course_info);
+    				$("#csize").html(data.course.course_stu_size);
+    			}
+        	});
+        	
+        	$.ajax({
+        		url:"../queryMyStudent.do",
+        		type:"post",
+        		dataType:"json",
+        		data:"cid="+cid,
+        		success:function(data){
+        			if(data.length>0){
+        				var s1 = $(".student").clone();
+        				$(".student").remove();
+        				$.each(data,function(i,dt){
+        					var s2 = s1.clone();
+        					s2.children("td[class='num']").html(i+1);
+        					s2.children("td[class='sid']").html(dt.id);
+        					s2.children("td[class='susername']").html(dt.username);
+        					s2.children("td[class='sname']").html(dt.student.name);
+        					s2.children("td[class='sex']").html(dt.student.sex);
+        					s2.children("td[class='sphone']").html(dt.student.phoneNum);
+        					s2.children("td[class='sclass']").html(dt.student.stuclass);
+        					$("#stable").append(s2);
+        				});
+        			}
+        		}
+        	});
+            $("div.buttonGather > button.back").click(function () {
+                    location.href = "tea_upScoreClass.html";
+            });
+            
+        });
+        function upScore(){
+        	
+        	var len = $(".num:last").html();
+        	var flag="true";
+        	var cid=getUrlParam("cou");
+        	var sz = new Array(len);
+        	var cname = $("#cname").html();
+        	for(var i=0;i<len;i++){
+        		var sid = $(".sid:eq("+i+")").html();
+        		var score = $(".score:eq("+i+")").val();
+        		if(score==""){
+        			flag="false";
+        		}
+        		var map = {
+        				"sid":sid,
+        				"score":score,
+        				"cid":cid,
+        				"cname":cname
+        		}
+        		sz[i]=map;
+        	}
+        	if(flag=="false"){
+        		alert("成绩未全部输入！");
+        	}else{
+        		var json = JSON.stringify(sz);
+        		json='{"sz":'+json+'}';
+        		var load = layer.load(0,{time:10000});
+            	$.ajax({
+            		url:"../insertStudentScore.do",
+            		type:"post",
+            		dataType:"json",
+            		data:"sz="+json,
+            		success:function(data){
+            			layer.close(load);
+            			alert("成绩成功上传");
+            			location.href = "tea_upScoreClass.html";
+            		}
+            	});
+        	}
+        	
+        }
+    </script>
+    <style type="text/css">
+    	.score{
+    		font-size: 38px;
+    		width: 64px;
+    		font-weight:bold;
+    	}
+    </style>
+</head>
+<body>
+<div class="tableDetails">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th>课程编号</th><td id="cid"></td>
+            <th>课程名称</th><td id="cname"></td>
+            <th>课程状态</th><td id="cflag"></td>
+            <th></th><td></td>
+            <th></th><td></td>
+        </tr>
+        <tr>
+            <th>教师名称</th><td id="ctea"></td>
+            <th>课程详情</th><td id="cinfo"></td>
+            <th>班级人数</th><td id="csize"></td>
+            <th></th><td></td>
+            <th></th><td></td>
+        </tr>
+    </table>
+</div>
+<div class="buttonGather">
+	<button class="back">返回</button>
+	<button class="upScore" onclick="upScore()" style="background: red;float: right;">上传</button>
+</div>
+
+
+<div class="tableList">
+    <table border="0" cellpadding="0" cellspacing="0" id="stable">
+        <tr>
+            <th></th>
+            <th>学生编号</th>
+            <th>帐号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>手机号</th>
+            <th>班级</th>
+            <th width="60px">成绩</th>
+        </tr>
+        
+        <tr class="student">
+            <td class="num"></td>
+            <td class="sid"></td>
+            <td class="susername"></td>
+            <td class="sname"></td>
+            <td class="sex"></td>
+            <td class="sphone"></td>
+			<td class="sclass"></td>
+			<td><input type="text" class="score" maxlength="2"  onkeyup="this.value=this.value.replace(/[^\d]/g,'');"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
+<!--滚动条开始-->
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<style>
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        border-radius: 0;
+        margin: 0;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{
+        /* 2nd scrollbar dragger style... */
+        background-color: #355372;
+        height: 10px;
+    }
+    ._mCS_1 .mCSB_scrollTools .mCSB_draggerRail{
+        height: 8px;
+        border: 1px solid #355372;
+        background-color: #FFFFFF;
+    }
+</style>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("div.tableList").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: true
+            });
+        });
+
+    })(jQuery);
+</script>
+<!--滚动条结束-->

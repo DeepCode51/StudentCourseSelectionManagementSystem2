@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学弥途远校本课程选课系统-教师端</title>
+    <link rel="stylesheet" type="text/css" href="css/css.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$.ajax({
+				url:"../teaUserCheck.do",
+				type:"post",
+				dataType:"json",
+    			success:function(data){
+    				if(data.flag=="false"){
+    					window.location.href="teachlogin.html";
+    				}else{
+    					$("#name").html(data.name);
+    					if(data.role.fn1=="false"){
+    						$("#mycourse").hide();
+    						$("#mycourse").prev("div").hide();
+    					}
+    					if(data.role.fn2=="false"){
+    						$("#addcourse").hide();
+    						$("#addcourse").prev("div").hide();
+    					}
+    					if(data.role.fn3=="false"){
+    						$("#uploadscourse").hide();
+    						$("#uploadscourse").prev("div").hide();
+    					}
+    				}
+    			}
+			});
+		});
+	</script>
+</head>
+<body>
+
+<section>
+    <div class="left">
+    	<div class="tlog" >
+    		<img alt="学弥途远" src="images/log.png" >
+    	</div>
+        
+        <div class="shadowDouble"></div>
+		    <span class="user">教师用户:<span style="color:#fff;" id="name">rcx</span>
+        <div class="shadowDouble"></div>
+		<nav>
+			<div class="classA">
+				<a href="about.htm" target="lemon">首页</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA"  id="mycourse">
+				<a href="tea_MyCourseList.html" target="lemon">我的课程</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA" id="addcourse">
+				<a href="tea_addCourse.html" target="lemon">增加课程</a>
+			</div>
+			<div class="shadowDouble"></div>
+			<div class="classA"  id="uploadscourse">
+				<a href="tea_upScoreClass.html" target="lemon">上传成绩</a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="tea_TeacherInfo.html" target="lemon">我的账号</a>
+			</div>
+			<div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="tea_MyData.html" target="lemon">系统通知<span style="color:#fff;font-weight:bold;" ></span></a>
+			</div>
+            <div class="shadowDouble"></div>
+			<div class="classA">
+				<a href="../teaUserExit.do">退出</a>
+			</div>
+            <div class="shadowDouble"></div>
+			
+        </nav>
+    </div>
+    <div class="right"><iframe name="lemon" frameborder=”no” border=”0″ marginwidth=”0″ marginheight=”0″ src="about.htm"></iframe></div>
+</section>
+
+</body>
+</html>
+
+<link rel="stylesheet" type="text/css" href="mCustomScrollbar/jquery.mCustomScrollbar.css">
+<script src="js/jquery-ui.min.js"></script>
+<script src="mCustomScrollbar/jquery.mousewheel.min.js"></script>
+<script src="mCustomScrollbar/jquery.mCustomScrollbar.js"></script>
+<script type='text/javascript'>
+    (function ($) {
+        $(document).ready(function () {
+            $("nav").mCustomScrollbar({
+                scrollButtons: {
+                    enable: false,
+                    scrollType: "continuous",
+                    scrollSpeed: 20,
+                    scrollAmount: 40
+                },
+                horizontalScroll: false,
+            });
+        });
+
+    })(jQuery);
+</script>

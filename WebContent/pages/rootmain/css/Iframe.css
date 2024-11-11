@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* CSS Document */
+*{
+    padding: 0px;
+    margin: 0px;
+}
+html,body{height:100%;overflow:hidden;}
+body{padding: 0px; margin:0px; line-height:1.6; font-family:"Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif !important; color: #222;font-size: 14px;background-color: #fff; overflow:auto
+}
+
+ul,li{padding:0;margin:0}
+img{border:0}
+
+/*正文begin*/
+/*企业资料管理*/
+.title{width:100%;margin:auto;height:60px; position:relative; display:block}
+.title>a{display:block; float:right; margin-right:30px; color:#06F;;height:25px; margin-top:17px}
+
+.gs_name{width:100%; height:260px; margin:auto; border-bottom:solid 2px #eff3f5; position:relative; display:table}
+.gs_name>img{margin:10px auto;width:280px; height:170px; display:block}
+.gs_name>p{width:100%; text-align:center;height:25px; margin:20px auto; font-size:20px;}
+
+.qy_con{width:100%;height:auto; display:table; padding-bottom:50px}
+.qy_con>span{ margin-left:15px; display:block; float:left; margin-top:10px; line-height:18px; padding-left:5px;width:90%}
+.qy_con>span:first-child{ border-left:solid 2px #06C; height:18px; margin-top:10px}
+.qy_con>p{ float:left;display:block; line-height:18px; padding-left:5px;width:90%; margin-left:16px; color:#9c9c9c; margin-top:2px; margin-bottom:0}
+
+/*产品管理*/
+.cp_title{width:97%; padding:0 0.5%; margin-left:1%; float:left;border-left:solid 2px #06C; height:18px; margin-top:10px}
+.add_cp{width:97%; float:left; margin-left:1.5%;height:50px; margin-top:15px}
+.add_cp>a{width:125px;height:45px; float:left; background:#0c89ff; color:#fff; text-align:center; line-height:45px; font-size:18px; text-decoration:none}
+.add_cp>a:hover{ text-decoration:none; color:#fff}
+.add_cp>a:focus{color:#fff; text-decoration:none}
+
+.table_con{width:97%; float:left;margin-left:1.5%; display:block; height:auto; margin-top:10px; padding-bottom:80px}
+.table_con table{width:100%}
+.table_con table tbody tr.tb_title{background:#eff3f5; height:45px; border-bottom:none}
+.table_con table tbody tr.tb_title td{height:25px; line-height:25px; border-left:solid 1px #e2e5e6; float:left; margin-top:10px}
+.table_con table tbody tr.tb_title td:first-child{border-left:none}
+
+.table_con table tbody tr{height:45px; border-bottom:solid 1px #e7e7e7}
+.table_con table tbody tr td{height:30px; line-height:30px; float:left; margin-top:8px; padding:0 15px}
+.table_con table tbody tr td input{width:50px; height:25px; float:left; margin-right:10px;border:0;background:none; line-height:25px; text-align:center}
+.table_con table tbody tr td input:last-child{margin:0}
+.table_con table tbody tr td input.bj_btn{border:solid 1px #0c89ff; color:#0c89ff}
+.table_con table tbody tr td input.sj_btn{border:solid 1px #0c89ff; background:#0c89ff; color:#fff}
+.table_con table tbody tr td input.del_btn{border:solid 1px #f12c0b; background:#f12c0b; color:#fff}
+/*我的微网站*/
+.wz_con{width:100%; height:auto; margin:auto; position:relative; display:table}
+.wz_con>img{margin:150px auto 0 auto;width:200px; height:200px; display:block}
+.wz_con>p{width:100%; text-align:center;height:25px; margin:20px auto; font-size:14px;}
+
+.down_scapp{ position:fixed;width:100%; height:25px; background:#fff; bottom:100px; left:0; text-align:center}
+.down_scapp>a{ text-decoration:underline}
+
+
+
+
+
+
+
+
+
+
+

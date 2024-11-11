@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>学弥途远 · 校本课程选课系统</title>
+
+	<script type="text/javascript" src="js/jquery-3.1.0.min.js" language="javascript"></script>
+	<script type="text/javascript">
+		
+	</script>
+	<style type="text/css">
+		body{
+			margin:0px;
+			background:#393d49;
+			color:#F4EEC5;
+		}
+		.ht{
+			text-align:center;
+		}
+		#toptitle{
+			background:#F5F5F5;
+			height:35px;
+		}
+		a{
+			text-decoration:none;
+			font-size:14px;
+			color:#F4EEC5;
+		}
+		#register{
+			border-top: 2px solid #fff;
+			border-bottom: 2px solid #fff;
+			left: 100px;
+			height:390px;
+			padding: 10px;
+			position: relative;
+			width: 1194px;
+			text-align:center;
+		}
+
+		.bu{
+			font-size:20px;
+			cursor: pointer;
+			font-family:"Microsoft Yahei";
+			font-weight:bold;
+			background:#F4EEC5;
+			width:200px;
+			height:60px;
+			color:#333;
+			margin:10px;
+		}
+		#div_root{
+			text-align:center;
+		}
+		#root{
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+	$(function(){
+		$("#tea").click(function(){
+			window.location.href="teachlogin.html";
+		});
+		$("#stu").click(function(){
+			window.location.href="studentlogin.html";
+		});
+		$("#root").click(function(){
+			window.location.href="rootlogin.html";
+		});
+	});	
+	</script>
+</head>
+
+<body>
+	<div>
+		<h1 class="ht">学弥途远 · 校本课程选课系统</h1>
+		<h3 class="ht">知识是人类进步的摇篮  人才·知识</h3>
+	</div>
+	<div id="register">
+		<img src="images/icon1.png" />
+		<div>			
+			<button  id="tea" class="bu">教师登录</button>
+			<button  id="stu" class="bu">学生登录</button>
+		</div>
+	</div>
+	<div id="div_root">
+		<br/>
+		<span id="root">@2020，管理员</span>
+	</div>
+</body>
+</html>

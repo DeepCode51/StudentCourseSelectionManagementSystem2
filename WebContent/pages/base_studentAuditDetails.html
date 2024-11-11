@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+    <title>学生管理-学生信息详情</title>
+    <link rel="stylesheet" type="text/css" href="css/frameHtml.css">
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("div.buttonGather > button.back").click(function () {
+                history.back();
+            })
+            $("div.buttonGather > button.studentState").click(function () {
+                $(".blackBg").css("display","block");
+                $(".popTips").css("display","block");
+            });
+            $(".blackBg,span.popOut,button.popBack").click(function () {
+                $(".blackBg").css("display","none");
+                $(".popTips").css("display","none");
+            });
+
+            $("div.popStudent label").click(function () {
+                if($(this).find("input").is(":checked")){
+                    $("div.popStudent label").removeClass("checked");
+                    $(this).addClass("checked");
+                }else{
+                    $(this).removeClass("checked");
+                }
+            })
+        })
+
+    </script>
+</head>
+<body>
+<header>
+    <div><a href="">学生列表</a>&nbsp;&rAarr;&nbsp;<a href="">学生信息详情</a></div>
+</header>
+
+<div class="buttonGather"><button class="back">返回</button><button class="studentState">修改学生状态</button></div>
+
+<h1 class="finishTitle"><span>王里斯本</span>个人档案</h1>
+<ul class="finishInformation">
+    <li>
+        <ul>
+            <li><img src="images/portrait1.jpg" width="97" height="137"></li>
+            <li><span>学生状态</span><span>正常上课</span></li>
+            <li><span>帐号状态</span><span>正常</span></li>
+            <li><span>学号</span><span>ST006001</span></li>
+            <li><span>所在班级</span><span>20160331黑科技二班</span></li>
+            <li><span>开班地点</span><span>黑龙江省哈尔滨市道外区<br>黑龙江科技大学</span></li>
+            <li><span>邮箱</span><span>zhangsan@qq.com</span></li>
+            <li><span>身份证号</span><span>265487987979897987849</span></li>
+        </ul>
+    </li>
+    <li>
+        <ul>
+            <li><span>姓名</span><span>王里斯本</span></li>
+            <li><span>性别</span><span>男</span></li>
+            <li><span>手机号</span><span>13597745621</span></li>
+            <li><span>QQ号</span><span>3668789451544</span></li>
+            <li><span>民族</span><span>维吾尔族</span></li>
+            <li><span>籍贯</span><span>新疆维吾尔族自治区</span></li>
+            <li><span>政治面貌</span><span>预备党员</span></li>
+            <li><span>当前学历</span><span>本科在读</span></li>
+            <li><span>生源院校</span><span>黑龙江科技大学</span></li>
+            <li><span>所学专业</span><span>计算机科学与技术</span></li>
+            <li><span>入学年份</span><span>2012</span></li>
+        </ul>
+    </li>
+</ul>
+<!--弹窗开始-->
+<link type="text/css" rel="stylesheet" href="css/popTips.css">
+<div class="blackBg"></div>
+<div class="popTips" style="width: 310px; margin-left: -205px; margin-top: -150px;">
+    <h1>消息提示<span class="popOut">&times;</span></h1>
+    <div class="popStudent">
+        <label class="checked"><input name="classState" type="radio" value="正常上课" checked>正常上课</label>
+        <label><input name="classState" type="radio" value="休学中">休学中</label>
+        <label><input name="classState" type="radio" value="缺课中">缺课中</label>
+        <label><input name="classState" type="radio" value="已退学">已退学</label>
+    </div>
+    <div class="button">
+        <button class="popSubmit">确认</button>
+        <button class="popBack">取消</button>
+    </div>
+</div>
+<!--弹窗结束-->
+</body>
+</html>

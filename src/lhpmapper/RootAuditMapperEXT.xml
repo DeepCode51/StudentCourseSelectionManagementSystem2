@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.RootAuditMapper">
+	<!-- 教师审核 -->
+		<resultMap type="org.lhp.bean.Teacher" id="TeachInfo">
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="idcard" column="idcard"/>
+		<result property="phonenumber" column="phonenumber"/>
+		<result property="provinces" column="provinces"/>
+		<result property="eduction" column="eduction"/>
+		<result property="school" column="school"/>
+		<result property="major" column="major"/>
+	</resultMap>
+	
+	<resultMap type="org.lhp.bean.TeacherUserRt" id="TeacherInfoRt">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="role" column="role"/>
+		<association property="teachinfo" resultMap="TeachInfo"></association>
+	</resultMap>
+	
+	<select id="queryNoAuditTeacherList"  resultMap="TeacherInfoRt">
+		SELECT tu.id,username,tu.role,`name`, `sex`, `idcard`, `phonenumber`, `provinces`, `eduction`, `school`, `major` 
+		FROM `tea_user` tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE role=1
+	</select>
+	
+	<select id="ByIdqueryTeachInfo" parameterType="int" resultMap="TeacherInfoRt">
+		SELECT tu.id,username,`name`, `sex`, `idcard`, `phonenumber`, `provinces`, `eduction`, `school`, `major` 
+		FROM `tea_user` tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE tu.id=#{tid}
+	</select>
+	
+</mapper>

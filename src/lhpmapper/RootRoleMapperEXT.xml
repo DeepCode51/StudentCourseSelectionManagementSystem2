@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.RootRoleMapperEXT">
+	<insert id="AddRole" parameterType="org.lhp.bean.RoleInfo">
+		INSERT INTO `RoleInfo` 
+		(`rolename`, `roleinfo`, `fn1`, `fn2`, `fn3`, `fn4`, `fn5`, `fn6`)
+		 VALUES 
+		(#{rolename}, #{roleinfo}, #{fn1}, #{fn2}, #{fn3}, #{fn4}, #{fn5}, #{fn6})	
+	</insert>
+	
+	<select id="QueryAllRole" resultType="org.lhp.bean.RoleInfo">
+		SELECT * FROM `RoleInfo` WHERE roleid !=1
+	</select>
+	
+	<select id="ByIdQueryOneRole" parameterType="int" resultType="org.lhp.bean.RoleInfo">
+		SELECT * FROM `RoleInfo` WHERE roleid=#{rid}
+	</select>
+	
+	<update id="RoleModify" parameterType="org.lhp.bean.RoleInfo">
+		UPDATE `RoleInfo` SET 
+		`rolename`=#{rolename},
+		 `roleinfo`=#{roleinfo},
+		  `fn1`=#{fn1}, `fn2`=#{fn2},
+		   `fn3`=#{fn3}, `fn4`=#{fn4},
+		    `fn5`=#{fn5}, `fn6`=#{fn6}
+		     WHERE `roleid`=#{roleid}
+	</update>
+	
+	<update id="ModifyTeacherRole" parameterType="map">
+		UPDATE `tea_user` SET `role`=#{roleid} WHERE (`id`=#{tid})
+	</update>
+	
+			<resultMap type="org.lhp.bean.Teacher" id="TeachInfo">
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="idcard" column="idcard"/>
+		<result property="phonenumber" column="phonenumber"/>
+		<result property="provinces" column="provinces"/>
+		<result property="eduction" column="eduction"/>
+		<result property="school" column="school"/>
+		<result property="major" column="major"/>
+	</resultMap>
+	
+	<resultMap type="org.lhp.bean.TeacherUserRt" id="TeacherInfoRt">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<result property="role" column="role"/>
+		<association property="teachinfo" resultMap="TeachInfo"></association>
+	</resultMap>
+	
+	<select id="queryAllTeach"  resultMap="TeacherInfoRt">
+		SELECT tu.id,username,tu.role,`name`, `sex`, `idcard`, `phonenumber`, `provinces`, `eduction`, `school`, `major` 
+		FROM `tea_user` tu 
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE role!=1
+	</select>
+</mapper>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.rootLoginMapper">
+	<select id="queryTeaUser" parameterType="String" resultType="org.lhp.bean.TeacherUser">
+		SELECT `username`, `password`, `role` FROM `tea_user`
+		WHERE `username`=#{username}
+	</select>
+	
+	<select id="queryTeachIsRoot" parameterType="String" resultType="org.lhp.bean.RoleInfo">
+		SELECT * FROM `roleinfo`
+		WHERE roleid=(
+			SELECT t.role FROM tea_user t WHERE username=#{username}
+		)
+	</select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.TeaCourseMapperEXT">
+	
+	<resultMap type="org.lhp.bean.Student" id="student">
+		<result property="name" column="name"/>
+		<result property="sex" column="sex"/>
+		<result property="phoneNum" column="phone"/>
+		<result property="stuclass" column="class"/>
+	</resultMap>
+	
+	<resultMap type="org.lhp.bean.StudentUserRt" id="studentRt">
+		<id property="id" column="id"/>
+		<result property="username" column="username"/>
+		<association property="student" resultMap="student"></association>
+	</resultMap>
+	
+	<select id="queryMytudent" parameterType="int" resultMap="studentRt">
+	  SELECT su.id,su.username,si.`name`,si.sex,si.phone,si.class FROM `stu_user` su
+		INNER JOIN stu_info si ON su.infoid=si.id
+		WHERE su.id IN (
+				SELECT  stuid FROM stu_course WHERE courseid=#{cid}
+		)
+	</select>
+	
+	<update id="insertStudentScore" parameterType="org.lhp.bean.Student_Course">
+		UPDATE stu_course SET score=#{Score} WHERE stuid=#{userRt.id} AND courseid=#{courseRt.id}
+	</update>
+	
+</mapper>

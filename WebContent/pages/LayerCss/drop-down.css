@@ -1,0 +1,136 @@
+* {
+	margin:0;
+	list-style:none;
+	padding:0;
+}
+
+/* 选择主 */
+div.select-main {
+	background-color:#FFFFFF;
+	border:1px solid #3E5B79;
+
+	border-radius:1px;
+	font-size:18px;
+	height:25px;
+	position:relative;
+	width:100%;
+	
+	-webkit-user-select:none; /* webkit (safari, chrome) browsers */
+    -moz-user-select:none; /* mozilla browsers */
+    -khtml-user-select:none; /* webkit (konqueror) browsers */
+    -ms-user-select:none; /* IE10+ */
+}
+
+div.select-main.z-index {
+	z-index:10;
+}
+
+div.select-main.disabled {
+	cursor:default;
+	filter:alpha(opacity=50);
+	opacity:0.5;
+	zoom:1;
+}
+
+div.select-main.disabled div.select-set {
+	cursor:default;
+}
+
+div.select-main.disabled div.select-arrow {
+	cursor:default;
+}
+
+div.select-set {
+	background-color:#FFFFFF;
+	color:#3E5B79;
+	cursor:pointer;
+	height:25px;
+	line-height:25px;
+	overflow:hidden;
+	position:relative;
+	padding:0;
+	width:85%;
+	z-index:5;
+	text-indent: 7px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	-o-text-overflow:ellipsis;
+}
+
+div.select-arrow {
+	border-top:7px solid #3E5B79;
+	border-left:7px solid transparent;
+	border-right:7px solid transparent;
+	cursor:pointer;
+	height:0px;
+	position:absolute;
+	top:10px;
+	right:10px;
+	width:0px;
+	z-index:7;
+}
+
+div.select-arrow.reverse {
+	border-top:7px solid transparent;
+	border-bottom:7px solid #3E5B79;
+	top:3px;
+}
+
+div.select-block {
+	background-color:#F5F5F5;
+    border:1px solid #3E5B79;
+    border-radius:1px;
+    left:-1px;
+    line-height:20px;
+    position:absolute;
+    top:25px;
+	min-width:100%;
+}
+
+ul.select-list {
+	cursor:pointer;
+	margin:7px 0 7px;
+	overflow: hidden;
+}
+
+/* 滚动视图 */
+
+ul.select-list::-webkit-scrollbar {
+    width:12px;
+}
+
+ul.select-list::-webkit-scrollbar-track {
+    border-radius:1px;
+}
+
+ul.select-list::-webkit-scrollbar-thumb {
+    border-radius:1px;
+
+}
+
+ul.select-list {
+	scrollbar-face-color:#AEB1B1;
+    scrollbar-shadow-color:#C7CACA;
+    scrollbar-highlight-color:#CED1D1;
+    scrollbar-3dlight-color:#CED1D1;
+    scrollbar-darkshadow-color:#C7CACA;
+    scrollbar-track-color:#CED1D1;
+    scrollbar-arrow-color:#333;
+}
+
+/* 端滚动视图 */
+
+li.select-items {
+	color:#333333;
+	padding:7px 7px;
+	white-space:nowrap;
+
+}
+li.select-items.active {
+	background-color:#D0D0D0;
+}
+
+li.select-items:hover{
+	background-color:#3E5B79;
+	color:#FFF;
+}

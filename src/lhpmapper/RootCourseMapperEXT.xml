@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lhpmapper.rootCourseMapper">
+
+	<resultMap type="org.lhp.bean.Teacher" id="teacher">
+		<result property="id" column="tid"/>
+		<result property="name" column="name" />
+	</resultMap>
+	<resultMap type="org.lhp.bean.CourseRt" id="course">
+		<id property="id" column="id" />
+		<result property="course_name" column="course_name" />
+		<result property="course_type" column="course_type" />
+		<result property="course_info" column="course_info" />
+		<association property="teachuid" resultMap="teacher"></association>
+	</resultMap>
+	
+	<select id="queryNoAuditCourse" resultMap="course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name,tu.id as tid FROM `course` c
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE c.course_flag=0
+	</select>
+	
+	<select id="onTermNoAuditCourse" parameterType="Map" resultMap="course">
+		SELECT c.id,`course_name`, `course_type`, `course_info`,name FROM `course` c
+		INNER JOIN tea_user tu on tu.id=c.teachid
+		INNER JOIN tea_info ti ON tu.infoid=ti.id
+		WHERE 1=1
+		<if test="tname!=''">
+			AND ti.`name`=#{tname}
+		</if>
+		<if test="ctype!=''">
+			AND c.course_type=#{ctype}
+		</if>
+		<if test="cname!=''">
+			AND c.course_name=#{cname}
+		</if>
+	</select>
+	
+	<update id="CourseAduitReturnNO" parameterType="int">
+		UPDATE `course` SET `course_flag`='2' WHERE (`id`=#{tid})
+	</update>
+
+	<update id="CourseAduitReturnYES" parameterType="int">
+		UPDATE `course` SET `course_flag`='1' WHERE (`id`=#{tid})
+	</update>
+
+</mapper>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8">
+<title>学弥途远—管理员中心</title>
+
+<link rel="stylesheet" href="css/index.css" type="text/css" media="screen" />
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/tendina.min.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+    <script type="text/javascript">
+	    $(document).ready(function () {
+	    	$("#back").click(function(){
+	    		location.href="../index.html";
+	    	});
+	    });
+    </script>
+</head>
+<body>
+    <!--顶部-->
+    <div class="top">
+            <div style="float: left"><span style="font-size: 16px;line-height: 45px;padding-left: 20px;color: #fff">学弥途远—管理员中心</h1></span></div>
+            	
+            <div id="ad_setting" class="ad_setting">
+                <a class="ad_setting_a" href="javascript:; " id="back">退出</a>
+            </div>
+            <div  class="ad_setting">
+                <a class="ad_setting_a" href="javascript:; ">课程管理员：rcx</a>
+            </div>
+    </div>
+    <!--顶部结束-->
+    <!--菜单-->
+    <div class="left-menu">
+        <ul id="menu">
+            <li class="menu-list" style="margin-top: 10px;">
+               <a href="../about.htm" target="menuFrame"><i class="glyph-icon icon-chevron-right2"></i>主页</a>
+            </li>
+            <li class="menu-list" style="margin-top: 10px;">
+               <a style="cursor:pointer" class="firsta"><i  class="glyph-icon xlcd"></i>账号管理</a>
+                <ul>
+                    <li><a href="../root_teacherAudit.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>账号审核</a></li>
+                    <li><a href="../root_roleList.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>权限管理</a></li>
+                    <li><a href="../root_teacherRoleModify.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>账号管理</a></li>
+					<li><a href="../root_MyData.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>系统通知</a></li>
+                </ul>
+            </li>
+            <li class="menu-list" style="margin-top: 10px;">
+               <a style="cursor:pointer" class="firsta"><i  class="glyph-icon xlcd"></i>课程管理</a>
+                <ul>
+                    <li><a href="../root_CourseCheck.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>课程审核</a></li>
+					 <li><a href="../root_MyData.html" target="menuFrame"><i class="glyph-icon icon-chevron-right1"></i>系统通知</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    
+    <!--菜单右边的iframe页面-->
+    <div id="right-content" class="right-content">
+        <div class="content">
+            <div id="page_content">
+                <iframe id="menuFrame" name="menuFrame" src="../about.htm" style="overflow:visible;"
+                        scrolling="yes" frameborder="no" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
